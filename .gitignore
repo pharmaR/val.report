@@ -1,0 +1,14 @@
+.Rproj.user
+.Rhistory
+.RData
+.Ruserdata
+val.report.Rproj
+inst/doc
+inst/assessments
+inst/source/Outputs/
+inst/source/Library
+inst/source/*Rcheck
+inst/source/*tar.gz
+inst/source/
+inst/checks/
+docs

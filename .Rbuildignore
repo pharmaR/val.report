@@ -1,0 +1,17 @@
+^.*\.Rproj$
+^\.Rproj\.user$
+^LICENSE\.md$
+^README\.Rmd$
+^codecov\.yml$
+^val.report\.Rproj$
+inst/source/Outputs
+inst/checks/*
+inst/source/*
+inst/source/Library
+inst/source/*Rcheck
+inst/source/*tar.gz
+inst/*.rds
+validation_report_*
+_pkgdown.yaml
+pkgdown
+.github

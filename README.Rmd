@@ -1,0 +1,62 @@
+---
+output: github_document
+---
+
+<!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
+
+# val.report <a href="https://pharmar.github.io/val.report/"><img src="man/figures/logo.svg" align="right" height="139" alt="val.report website" /></a>
+
+<!-- badges: start -->
+[![Codecov test coverage](https://codecov.io/gh/pharmaR/val.report/graph/badge.svg)](https://app.codecov.io/gh/pharmaR/val.report)
+[![R-CMD-check](https://github.com/pharmaR/val.report/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pharmaR/val.report/actions/workflows/R-CMD-check.yaml)
+<!-- badges: end -->
+
+The goal of val.report is to documents results of package checks for validation.
+
+## Installation
+
+You can install the development version of val.report from [GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("pharmaR/val.report")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+```{r cleanup, echo=FALSE}
+unlink("pkgdown/assets/*")
+```
+
+```{r example}
+library(val.report)
+# Specify the folder where the files should go (here for easy access on the website)
+options("valreport_output_dir" = "pkgdown/assets")
+pr <- package_report(
+  package_name = "dplyr",
+  package_version = "1.1.4",
+  params = list(
+    assessment_path = system.file("assessments/dplyr.rds", package = "val.report")),
+  quiet = TRUE # To silence quarto output for readability
+)
+pr
+```
+
+We first selected were reports should go.
+Then we used [{riskmetric}](https://cran.r-project.org/package=riskmetric) data to generate the report for the package.
+
+Then we can access those files on the website:
+
+ - [HTML](https://pharmar.github.io/val.report/validation_report_dplyr_v1.1.4.html)
+ - [markdown](https://pharmar.github.io/val.report/validation_report_dplyr_v1.1.4.md)
