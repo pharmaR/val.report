@@ -1,0 +1,46 @@
+# val.report
+
+The goal of val.report is to documents results of package checks for
+validation.
+
+## Installation
+
+You can install the development version of val.report from
+[GitHub](https://github.com/) with:
+
+``` r
+# install.packages("pak")
+pak::pak("pharmaR/val.report")
+```
+
+## Example
+
+This is a basic example which shows you how to solve a common problem:
+
+``` r
+library(val.report)
+# Specify the folder where the files should go (here for easy access on the website)
+options("valreport_output_dir" = "pkgdown/assets")
+pr <- package_report(
+  package_name = "dplyr",
+  package_version = "1.1.4",
+  params = list(
+    assessment_path = system.file("assessments/dplyr.rds", package = "val.report")),
+  quiet = TRUE # To silence quarto output for readability
+)
+#> Warning in package_report(package_name = "dplyr", package_version = "1.1.4", :
+#> Please provide the source of the package assessment
+pr
+#> [1] "pkgdown/assets/validation_report_dplyr_v1.1.4.html"
+#> [2] "pkgdown/assets/validation_report_dplyr_v1.1.4.md"  
+#> [3] "pkgdown/assets/validation_report_dplyr_v1.1.4.pdf"
+```
+
+We first selected were reports should go. Then we used
+[{riskmetric}](https://cran.r-project.org/package=riskmetric) data to
+generate the report for the package.
+
+Then we can access those files on the website:
+
+- [HTML](https://pharmar.github.io/val.report/validation_report_dplyr_v1.1.4.html)
+- [markdown](https://pharmar.github.io/val.report/validation_report_dplyr_v1.1.4.md)
