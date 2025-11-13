@@ -3,7 +3,7 @@ pkgdown: 2.2.0
 pkgdown_sha: ~
 articles:
   riskmetric_scores: riskmetric_scores.html
-last_built: 2025-11-13T14:40Z
+last_built: 2025-11-13T14:42Z
 urls:
   reference: https://pharmar.github.io/val.report/reference
   article: https://pharmar.github.io/val.report/articles
