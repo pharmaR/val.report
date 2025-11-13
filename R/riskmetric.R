@@ -39,7 +39,6 @@ assessment <- function(assessment) {
     warning(paste(big, collapse = ", "), ": cannot be summarized yet")
     out <- out[lengths(out) == 1]
   }
-  # browser()
   list2DF(out)
 }
 

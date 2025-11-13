@@ -95,12 +95,10 @@ Environmental and options variables affect how package checks and software in it
 Here is the environ variables when running this report
 
 ```{r computing}
-val.report::environ_report(exclude = c("GITHUB_PAT", "APPDATA", 
-                                        "ProgramFiles", "ProgramFiles(x86)",
-                                        "R_USER", "USERNAME", "USERPROFILE", 
-                                        "USERDNSDOMAIN", "USERDOMAIN", 
-                                        "USERDOMAIN_ROAMINGPROFILE", "R_DptShare"              
-                                        ))
+val.report::environ_report(exclude = c("APPDATA", "GITHUB", "GITHUB_PAT", "GITHUB_PAT_GITHUB_COM", 
+                                       "GITLAB", "GITLAB_PAT", "ProgramFiles", "ProgramFiles(x86)", 
+                                       "R_DptShare", "R_USER", "USERDNSDOMAIN", "USERDOMAIN", "USERDOMAIN_ROAMINGPROFILE", 
+                                       "USERNAME", "USERPROFILE"))
 ```
 
 ```{r options}

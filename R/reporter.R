@@ -75,8 +75,14 @@ package_report <- function(
     # quarto rendering happens in the same place as the file/project
     # To avoid issues copy to a different place and render there.
     render_dir <- output_dir()
-    files_to_copy <- list.files(template_path)
-    fc <- file.copy(from = file.path(template_path, files_to_copy),
+    if (!dir.exists(render_dir)) {
+      render_dir <- paste0(render_dir, "/")
+      if (!dir.exists(render_dir)) {
+        stop("Render directory doesn't exists. Please check the 'getOptions(\"valreport_output_dir\")' and sys.getEnv(\"VALREPORT_OUTPUT_DIR\")" )
+      }
+    }
+    files_to_copy <- list.files(template_path, full.names = TRUE)
+    fc <- file.copy(from = files_to_copy,
                     to = render_dir,
                     overwrite = TRUE,
                     copy.date = TRUE)
@@ -85,7 +91,7 @@ package_report <- function(
       stop("Copying to the rendering directory failed.")
     }
 
-    template_all_files <- file.path(render_dir, files_to_copy)
+    template_all_files <- list.files(render_dir, full.names = TRUE)
     template <- template_all_files[endsWith(template_all_files, "qmd")]
 
     if (length(template) > 1) {
