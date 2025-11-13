@@ -99,8 +99,9 @@ package_report <- function(
            "Please have only one quarto file on the directory.")
     }
 
-    prefix_output <- file.path(render_dir, paste0("validation_report_", full_name, ".qmd"))
-    file.rename(template, prefix_output)
+    file_template <- file.path(render_dir,
+                               paste0("validation_report_", full_name, ".qmd"))
+    file.rename(template, file_template)
 
     # replace the title of the place header by the package name and header
     top_page_file <- readLines(file.path(render_dir, "top_page.html"))
@@ -113,25 +114,21 @@ package_report <- function(
 
     suppressMessages({suppressWarnings({
       out <- quarto::quarto_render(
-        input = prefix_output,
+        input = file_template,
         output_format = output_format,
         execute_params = params,
         ...
       )
     })})
 
-    files_to_remove <- replace(
-      template_all_files,
-      which(template_all_files == template),
-      prefix_output
-    )
+    post_rendering <- list.files(render_dir, full.names = TRUE)
 
+    files_to_remove <- intersect(pre_rendering, post_rendering)
     fr <- file.remove(files_to_remove)
     if (any(!fr)) {
       warning("Failed to remove the quarto template used from the directory.")
     }
 
-    post_rendering <- list.files(render_dir, full.names = TRUE)
     output_files <- setdiff(post_rendering, pre_rendering)
     invisible(output_files)
 }
