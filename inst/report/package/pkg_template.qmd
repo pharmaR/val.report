@@ -1,8 +1,8 @@
 ---
-title: "This report is fully automated and builds on [`r params$image`](`r paste('https://hub.docker.com/r', params$image, sep = '/')`) image."
-date-format: "YYYY-MM-DD hh:mm:ss"
-date: today
-published-title: ""
+title: "Validation Report - `r params$package_name` @ `r params$package_version`"
+subtitle: "This report is fully automated and builds on [`r params$image`](`r paste('https://hub.docker.com/r', params$image, sep = '/')`) image."
+date-format: "YYYY-MM-DD HH:mm:ss ZZ"
+date: now
 params:
   package_name: dplyr
   package_version: 1.0.0
@@ -15,8 +15,15 @@ format:
   html: 
     toc: true  
     embed-resources: true
-    include-in-header: "top_page.html"
-    include-after-body: "transform_pre_class.html"
+    include-in-header:
+      text: |
+        <div class = "top-page">
+        <img src="{{< brand logo small >}}" alt="R Validation hub Logo">
+        <button type="button" class="btn"><span class="bi-chevron-left"></span>&nbsp;Back</button>
+        <span class="title">Validation Report {{< meta params.package_name >}} </span>
+        </div>
+    include-after-body:
+      - bottom_page.html
     theme: 
       dark: [darkly, custom.scss]
       light: [default, custom.scss, custom_light.scss]
