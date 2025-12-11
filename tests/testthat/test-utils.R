@@ -6,7 +6,7 @@ test_that("include_exclude_from works", {
 })
 
 test_that("All riskmetric:::pkg_ref_class_hierarchy have value to display in our report", {
-  allowed_names <- unlist(riskmetric:::pkg_ref_class_hierarchy)
+  allowed_names <- unlist(riskmetric::pkg_ref_class_hierarchy)
 
   expect_true(all(!is.na(sapply(allowed_names, get_pkg_origin))))
 })
