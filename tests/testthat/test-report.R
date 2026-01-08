@@ -9,8 +9,8 @@ describe("Run test for the report", {
   withr::local_options("valreport_output_dir" = tmp_folder)
 
   it("should be generated in all formats", {
-    expect_no_error({
-        pr <- package_report(
+    expect_no_error(
+        package_report(
           package_name = "dplyr",
           package_version = "1.1.4",
           params = list(
@@ -19,7 +19,7 @@ describe("Run test for the report", {
           quiet = TRUE,
           output_format = "all"
         )
-     })
+     )
   })
 
 })
