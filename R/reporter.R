@@ -13,12 +13,14 @@
 #' calling function `riskmetric::pkg_ref` before the risk assessment is executed
 #' @export
 #' @examples
+#' options("valreport_output_dir" = tempdir())
 #' pr <- package_report(
 #'   package_name = "dplyr",
 #'   package_version = "1.1.4",
 #'   params = list(
 #'     assessment_path = system.file("assessments/dplyr.rds", package = "val.report"),
-#'     image = "rhub/ref-image")
+#'     image = "rhub/ref-image"),
+#'     quiet = FALSE
 #' )
 #' pr
 #' file.remove(pr)
