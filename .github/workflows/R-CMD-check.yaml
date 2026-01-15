@@ -25,7 +25,7 @@ jobs:
 
       - uses: r-lib/actions/setup-r-dependencies@v2
         with:
-          extra-packages: any::rcmdcheck
+          extra-packages: any::rcmdcheck, any::pak
           needs: check
 
       - uses: quarto-dev/quarto-actions/setup@v2
@@ -33,6 +33,12 @@ jobs:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           tinytex: true
+
+      # Install package locally so that checks can find the assessment
+      - name: Install package
+        shell: Rscript {0}
+        run: |
+            pak::pak()
 
       - uses: r-lib/actions/check-r-package@v2
         with:
