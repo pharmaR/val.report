@@ -1,6 +1,6 @@
 Package: val.report
 Title: Validation Reports
-Version: 0.0.0.9006
+Version: 0.0.0.9007
 Authors@R: c(
     person("Lluís", "Revilla Sancho", , "lluis.revilla_sancho@roche.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0001-9747-2570")),

@@ -39,6 +39,8 @@ jobs:
         shell: Rscript {0}
         run: |
             pak::pak()
+            devtools::install()
+            packageVersion("val.report")
 
       - uses: r-lib/actions/check-r-package@v2
         with:
