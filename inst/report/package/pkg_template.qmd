@@ -22,13 +22,16 @@ format:
       light: [default, custom.scss, custom_light.scss]
   gfm:
     html-math-method: webtex    
-  typst:
+  pdf:
     toc: true
-    section-numbering: 1.1.1
-    df-print: default
-    margin:
-      x: 2cm
-      y: 2cm
+    number-depth: 3
+  # typst:
+  #   toc: true
+  #   section-numbering: 1.1.1
+  #   df-print: default
+  #   margin:
+  #     x: 2cm
+  #     y: 2cm
 filters:
   - foldable_code.lua
 ---
