@@ -13,7 +13,7 @@ prepare_namespace_table <- function(riskmetric_assessment) {
         value = reactable::colDef(
           cell = function(value) {
             # Please to update icons search for unicodes here: https://icons.getbootstrap.com/
-            if (value) {
+            if (isTRUE(value)) {
               # Green checkmark
               htmltools::tags$i(class = "bi bi-check-square", style = "background-color: var(--bs-success); font-weight: bold;")
             } else {

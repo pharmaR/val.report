@@ -256,7 +256,6 @@ The package uses `r if ("license" %in% names(d_riskmetric) && !is.null(d_riskmet
 
 ## Code checks
 
-Code checks for this package are: 
 
 ```{r r_cmd_check, eval=!is_risk_error(d_riskmetric[["r_cmd_check"]])}
 d_riskmetric[["r_cmd_check"]]
