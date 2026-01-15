@@ -3,10 +3,9 @@
 #' @param riskmetric_assessment object coming from rismetric::pkg_assess function
 #' @keywords internal
 prepare_namespace_table <- function(riskmetric_assessment) {
-  namespace_table <- riskmetric_assessment$export_help[sort(riskmetric_assessment$exported_namespace)] |>
-  as.data.frame()
-  colnames(namespace_table) <- "value"
-
+  namespace_vector <- riskmetric_assessment$export_help[sort(riskmetric_assessment$exported_namespace)]
+  namespace_table <- data.frame(object = names(namespace_vector), value = namespace_vector)
+  rownames(namespace_table) <- NULL
   namespace_table |>
     reactable::reactable(
       columns = list(
