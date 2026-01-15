@@ -60,9 +60,9 @@ package_report <- function(
                                      package = "val.report")
     }
 
-    params$package <- normalizePath(params$package, mustWork = FALSE)
+    params$package <- normalizePath(params$package, mustWork = FALSE, winslash = "/")
     if (!is.null(params$assessment_path)) {
-      params$assessment_path <- normalizePath(params$assessment_path, mustWork = TRUE)
+      params$assessment_path <- normalizePath(params$assessment_path, mustWork = TRUE, winslash = "/")
     }
     # Bug on https://github.com/quarto-dev/quarto-cli/issues/5765
 
