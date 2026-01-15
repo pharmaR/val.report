@@ -61,11 +61,11 @@ package_report <- function(
     }
 
     params$package <- normalizePath(params$package, mustWork = FALSE, winslash = "/")
-    if (!is.null(params$assessment_path)) {
+    if (!is.null(params$assessment_path) || !nzchar(params$assessment_path)) {
       params$assessment_path <- normalizePath(params$assessment_path, mustWork = TRUE, winslash = "/")
     }
-    # Bug on https://github.com/quarto-dev/quarto-cli/issues/5765
 
+    # Bug on https://github.com/quarto-dev/quarto-cli/issues/5765
     v <- quarto::quarto_version()
     if (v < package_version("1.7.13")) {
       warning("Please install the latest (devel) version of Quarto")
