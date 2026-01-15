@@ -129,8 +129,6 @@ namespace_table <- val.report:::prepare_namespace_table(d_riskmetric)
 ```
 
 
-::: {.content-visible when-format="html"}
-
 ```{r prepare_tables_dependencies}
 deps <- d_riskmetric$dependencies
 deps$package <- gsub("\\n", " ", deps$package)
@@ -145,8 +143,6 @@ dependencies_table <- htmltools::div(
   )
 )
 ```
-
-:::
 
 ```{r prepare_tables_reverse_dependencies}
 reverse_dependencies <- paste(d_riskmetric$reverse_dependencies, collapse = ", ")
