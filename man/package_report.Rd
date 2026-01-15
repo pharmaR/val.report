@@ -21,7 +21,7 @@ package_report(
 
 \item{package}{Path where to find a package source to retrieve name and version number.}
 
-\item{template_path}{Path to a custom quarto template file}
+\item{template_path}{Path to a directory with one quarto template file (and the files required for rendering it).}
 
 \item{output_format}{Output format for the report. Default is "all".}
 

@@ -3,7 +3,7 @@
 #' @param package_name Package name.
 #' @param package_version Package version number.
 #' @param package Path where to find a package source to retrieve name and version number.
-#' @param template_path Path to a custom quarto template file
+#' @param template_path Path to a directory with one quarto template file (and the files required for rendering it).
 #' @param output_format Output format for the report. Default is "all".
 #' @param params A list of execute parameters passed to the template
 #' @param ... Additional arguments passed to `quarto::quarto_render()`
@@ -55,9 +55,11 @@ package_report <- function(
     params$package_version <- package_version
     params$image <- get_image_name(params)
 
-    if (is.null(template_path)) {
-        template_path <- system.file("report/pkg_template.qmd",
+    if (is.null(template_path) || !nzchar(template_path)) {
+        template_path <- system.file("report/package",
                                      package = "val.report")
+    } else if (!dir.exists(template_path)) {
+        stop("Template directory is not available")
     }
 
     params$package <- normalizePath(params$package, mustWork = FALSE, winslash = "/")

@@ -41,6 +41,8 @@ jobs:
             pak::pak()
             devtools::install()
             packageVersion("val.report")
+            base::system.file("report/package", package = "val.report")
+            base::system.file("assessments/dplyr.rds", package = "val.report")
 
       - uses: r-lib/actions/check-r-package@v2
         with:
