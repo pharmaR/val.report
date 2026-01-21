@@ -25,7 +25,8 @@ format:
   pdf:
     toc: true
     number-depth: 3
-  # typst:
+  # FIXME: Typst didn't handle well the relative paths to images
+  #  typst:
   #   toc: true
   #   section-numbering: 1.1.1
   #   df-print: default
