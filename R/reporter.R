@@ -3,7 +3,7 @@
 #' @param package_name Package name.
 #' @param package_version Package version number.
 #' @param package Path where to find a package source to retrieve name and version number.
-#' @param template_path Path to a custom quarto template file
+#' @param template_path Path to a directory with one quarto template file (and the files required for rendering it).
 #' @param output_format Output format for the report. Default is "all".
 #' @param params A list of execute parameters passed to the template
 #' @param ... Additional arguments passed to `quarto::quarto_render()`
@@ -13,12 +13,14 @@
 #' calling function `riskmetric::pkg_ref` before the risk assessment is executed
 #' @export
 #' @examples
+#' options("valreport_output_dir" = tempdir())
 #' pr <- package_report(
 #'   package_name = "dplyr",
 #'   package_version = "1.1.4",
 #'   params = list(
 #'     assessment_path = system.file("assessments/dplyr.rds", package = "val.report"),
-#'     image = "rhub/ref-image")
+#'     image = "rhub/ref-image"),
+#'     quiet = FALSE
 #' )
 #' pr
 #' file.remove(pr)
@@ -53,17 +55,19 @@ package_report <- function(
     params$package_version <- package_version
     params$image <- get_image_name(params)
 
-    if (is.null(template_path)) {
-        template_path <- system.file("report/pkg_template.qmd",
+    if (is.null(template_path) || !nzchar(template_path)) {
+        template_path <- system.file("report/package",
                                      package = "val.report")
+    } else if (!dir.exists(template_path)) {
+        stop("Template directory is not available")
     }
 
-    params$package <- normalizePath(params$package, mustWork = FALSE)
-    if (!is.null(params$assessment_path)) {
-      params$assessment_path <- normalizePath(params$assessment_path, mustWork = TRUE)
+    params$package <- normalizePath(params$package, mustWork = FALSE, winslash = "/")
+    if (length(params$assessment_path) == 1L && !nzchar(params$assessment_path)) {
+      params$assessment_path <- normalizePath(params$assessment_path, mustWork = TRUE, winslash = "/")
     }
+
     # Bug on https://github.com/quarto-dev/quarto-cli/issues/5765
-
     v <- quarto::quarto_version()
     if (v < package_version("1.7.13")) {
       warning("Please install the latest (devel) version of Quarto")

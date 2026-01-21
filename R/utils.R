@@ -23,10 +23,11 @@ fill_in <- function(list, names) {
 }
 
 output_dir <- function() {
-  opt <- getOption("valreport_output_dir", default = NULL)
-  env <- Sys.getenv("VALREPORT_OUTPUT_DIR", unset = getwd())
-
-  opt %||% env
+  getOption("valreport_output_dir",
+            default = Sys.getenv("VALREPORT_OUTPUT_DIR",
+                                 unset = getwd()
+            )
+  )
 }
 
 rendering_dir <- function() {

@@ -22,13 +22,17 @@ format:
       light: [default, custom.scss, custom_light.scss]
   gfm:
     html-math-method: webtex    
-  typst:
+  pdf:
     toc: true
-    section-numbering: 1.1.1
-    df-print: default
-    margin:
-      x: 2cm
-      y: 2cm
+    number-depth: 3
+  # FIXME: Typst didn't handle well the relative paths to images
+  #  typst:
+  #   toc: true
+  #   section-numbering: 1.1.1
+  #   df-print: default
+  #   margin:
+  #     x: 2cm
+  #     y: 2cm
 filters:
   - foldable_code.lua
 ---
@@ -126,8 +130,6 @@ namespace_table <- val.report:::prepare_namespace_table(d_riskmetric)
 ```
 
 
-::: {.content-visible when-format="html"}
-
 ```{r prepare_tables_dependencies}
 deps <- d_riskmetric$dependencies
 deps$package <- gsub("\\n", " ", deps$package)
@@ -142,8 +144,6 @@ dependencies_table <- htmltools::div(
   )
 )
 ```
-
-:::
 
 ```{r prepare_tables_reverse_dependencies}
 reverse_dependencies <- paste(d_riskmetric$reverse_dependencies, collapse = ", ")
@@ -253,7 +253,6 @@ The package uses `r if ("license" %in% names(d_riskmetric) && !is.null(d_riskmet
 
 ## Code checks
 
-Code checks for this package are: 
 
 ```{r r_cmd_check, eval=!is_risk_error(d_riskmetric[["r_cmd_check"]])}
 d_riskmetric[["r_cmd_check"]]

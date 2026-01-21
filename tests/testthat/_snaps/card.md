@@ -1,4 +1,4 @@
-# Card is created with the expected components depending on arguments: only has title if no other argument is set
+# Card is created with the expected components depending on arguments / only has title if no other argument is set
 
     Code
       create_info_card("test title")
@@ -7,7 +7,7 @@
         <h3 class="card-title">test title</h3>
       </div>
 
-# Card is created with the expected components depending on arguments: has title and header
+# Card is created with the expected components depending on arguments / has title and header
 
     Code
       create_info_card(title = "test title", header = "Information header")
@@ -17,7 +17,7 @@
         <h3 class="card-title">test title</h3>
       </div>
 
-# Card is created with the expected components depending on arguments: has all arguments set
+# Card is created with the expected components depending on arguments / has all arguments set
 
     Code
       create_info_card(title = "test title", header = "Information header", text = "Extra test")
