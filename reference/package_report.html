@@ -7,7 +7,7 @@
 
     <a class="navbar-brand me-2" href="../index.html">val.report</a>
 
-    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9006</small>
+    <small class="nav-text text-muted me-auto" data-bs-toggle="tooltip" data-bs-placement="bottom" title="">0.0.0.9007</small>
 
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation">
@@ -69,7 +69,7 @@
 
 
 <dt id="arg-template-path">template_path<a class="anchor" aria-label="anchor" href="#arg-template-path"></a></dt>
-<dd><p>Path to a custom quarto template file</p></dd>
+<dd><p>Path to a directory with one quarto template file (and the files required for rendering it).</p></dd>
 
 
 <dt id="arg-output-format">output_format<a class="anchor" aria-label="anchor" href="#arg-output-format"></a></dt>
@@ -96,14 +96,271 @@ calling function <code><a href="https://pharmar.github.io/riskmetric/reference/p
 
     <div class="section level2">
     <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
-    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">pr</span> <span class="op">&lt;-</span> <span class="fu">package_report</span><span class="op">(</span></span></span>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="st">"valreport_output_dir"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/tempfile.html" class="external-link">tempdir</a></span><span class="op">(</span><span class="op">)</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="va">pr</span> <span class="op">&lt;-</span> <span class="fu">package_report</span><span class="op">(</span></span></span>
 <span class="r-in"><span>  package_name <span class="op">=</span> <span class="st">"dplyr"</span>,</span></span>
 <span class="r-in"><span>  package_version <span class="op">=</span> <span class="st">"1.1.4"</span>,</span></span>
 <span class="r-in"><span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
 <span class="r-in"><span>    assessment_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"assessments/dplyr.rds"</span>, package <span class="op">=</span> <span class="st">"val.report"</span><span class="op">)</span>,</span></span>
-<span class="r-in"><span>    image <span class="op">=</span> <span class="st">"rhub/ref-image"</span><span class="op">)</span></span></span>
+<span class="r-in"><span>    image <span class="op">=</span> <span class="st">"rhub/ref-image"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    quiet <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
-<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in normalizePath(params$assessment_path, mustWork = TRUE):</span> path[1]="": No such file or directory</span>
+<span class="r-wrn co"><span class="r-pr">#&gt;</span> <span class="warning">Warning: </span>Please provide the source of the package assessment</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> processing file: validation_report_dplyr_v1.1.4.qmd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">1/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">2/51 [setup]                              </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">3/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">4/51 [loading]                            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">5/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">6/51 [read-riskmetric]                    </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">7/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">8/51 [create_r_riskmetric]                </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">9/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">10/51 [info_cards]                         </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">11/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">12/51 [simple_cards]                       </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">13/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">14/51 [prepare_tables_namespace]           </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">15/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">16/51 [prepare_tables_dependencies]        </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">17/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">18/51 [prepare_tables_reverse_dependencies]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">19/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">20/51 [prepare_tables_examples]            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">21/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">22/51 [prepare_tables_news]                </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">23/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">24/51 [general-riskmetric]                 </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">25/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">MIT + file LICENSE26/51 [r_cmd_check]                        </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">27/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">28/51 [remote_checks]                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">29/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">30/51 [covr_coverage]                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">31/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">32/51 [execution_info]                     </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">33/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">34/51 [session_info]                       </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">35/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">36/51 [Platform]                           </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">37/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">38/51 [capabilities]                       </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">39/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">40/51 [external-software]                  </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">41/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">42/51 [graphic-software]                   </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">43/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">44/51 [machine]                            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">45/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">46/51 [RNGKind]                            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">47/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">48/51 [computing]                          </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">49/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">50/51 [options]                            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">51/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">output file: validation_report_dplyr_v1.1.4.knit.md</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">pandoc </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  to: html</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  output-file: validation_report_dplyr_v1.1.4.html</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  standalone: true</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  embed-resources: true</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  section-divs: true</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  html-math-method: mathjax</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  wrap: none</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  default-image-extension: png</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  toc: true</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  variables: {}</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">metadata</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  document-css: false</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  link-citations: true</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  lang: en</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  title: This report is fully automated and builds on [`r params$image`](`r paste('https://hub.docker.com/r', params$image, sep = '/')`) image.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  date-format: YYYY-MM-DD hh:mm:ss</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  date: today</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  published-title: ''</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  theme:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">    dark:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">      - darkly</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">      - custom.scss</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">    light:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">      - default</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">      - custom.scss</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">      - custom_light.scss</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> processing file: validation_report_dplyr_v1.1.4.qmd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">1/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">2/51 [setup]                              </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">3/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">4/51 [loading]                            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">5/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">6/51 [read-riskmetric]                    </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">7/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">8/51 [create_r_riskmetric]                </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">9/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">10/51 [info_cards]                         </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">11/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">12/51 [simple_cards]                       </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">13/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">14/51 [prepare_tables_namespace]           </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">15/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">16/51 [prepare_tables_dependencies]        </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">17/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">18/51 [prepare_tables_reverse_dependencies]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">19/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">20/51 [prepare_tables_examples]            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">21/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">22/51 [prepare_tables_news]                </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">23/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">24/51 [general-riskmetric]                 </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">25/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">MIT + file LICENSE26/51 [r_cmd_check]                        </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">27/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">28/51 [remote_checks]                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">29/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">30/51 [covr_coverage]                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">31/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">32/51 [execution_info]                     </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">33/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">34/51 [session_info]                       </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">35/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">36/51 [Platform]                           </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">37/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">38/51 [capabilities]                       </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">39/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">40/51 [external-software]                  </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">41/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">42/51 [graphic-software]                   </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">43/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">44/51 [machine]                            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">45/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">46/51 [RNGKind]                            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">47/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">48/51 [computing]                          </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">49/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">50/51 [options]                            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">51/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">output file: validation_report_dplyr_v1.1.4.knit.md</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">pandoc </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  to: &gt;-</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">    commonmark+autolink_bare_uris+emoji+footnotes+gfm_auto_identifiers+pipe_tables+strikeout+task_lists+tex_math_dollars</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  output-file: validation_report_dplyr_v1.1.4.md</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  standalone: true</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  default-image-extension: png</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  html-math-method: webtex</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  variables: {}</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">metadata</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  title: This report is fully automated and builds on [`r params$image`](`r paste('https://hub.docker.com/r', params$image, sep = '/')`) image.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  date-format: YYYY-MM-DD hh:mm:ss</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  date: today</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  published-title: ''</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> processing file: validation_report_dplyr_v1.1.4.qmd</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">1/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">2/51 [setup]                              </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">3/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">4/51 [loading]                            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">5/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">6/51 [read-riskmetric]                    </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">7/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">8/51 [create_r_riskmetric]                </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">9/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">10/51 [info_cards]                         </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">11/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">12/51 [simple_cards]                       </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">13/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">14/51 [prepare_tables_namespace]           </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">15/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">16/51 [prepare_tables_dependencies]        </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">17/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">18/51 [prepare_tables_reverse_dependencies]</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">19/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">20/51 [prepare_tables_examples]            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">21/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">22/51 [prepare_tables_news]                </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">23/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">24/51 [general-riskmetric]                 </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">25/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">MIT + file LICENSE26/51 [r_cmd_check]                        </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">27/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">28/51 [remote_checks]                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">29/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">30/51 [covr_coverage]                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">31/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">32/51 [execution_info]                     </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">33/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">34/51 [session_info]                       </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">35/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">36/51 [Platform]                           </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">37/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">38/51 [capabilities]                       </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">39/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">40/51 [external-software]                  </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">41/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">42/51 [graphic-software]                   </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">43/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">44/51 [machine]                            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">45/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">46/51 [RNGKind]                            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">47/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">48/51 [computing]                          </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">49/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">50/51 [options]                            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">51/51                                      </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">output file: validation_report_dplyr_v1.1.4.knit.md</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">pandoc </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  to: latex</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  output-file: validation_report_dplyr_v1.1.4.tex</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  standalone: true</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  pdf-engine: lualatex</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  variables:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">    graphics: true</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">    tables: true</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">    secnumdepth: 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  default-image-extension: pdf</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  toc: true</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">metadata</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  documentclass: scrartcl</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  classoption:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">    - DIV=11</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">    - numbers=noendperiod</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  papersize: letter</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  header-includes:</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">    - \KOMAoption{captions}{tableheading}</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  block-headings: true</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  title: This report is fully automated and builds on [`r params$image`](`r paste('https://hub.docker.com/r', params$image, sep = '/')`) image.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  date-format: YYYY-MM-DD hh:mm:ss</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  date: today</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  published-title: ''</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  number-depth: 3</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">Rendering PDF</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #0000BB; font-weight: bold;">running lualatex - 1</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">No TeX installation was detected.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> Please run 'quarto install tinytex' to install TinyTex.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> If you prefer, you may install TexLive or another TeX distribution.</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">WARN: Error encountered when rendering files</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error in quarto::quarto_render(input = file_template, output_format = output_format,     execute_params = params, ...):</span> <span style="color: #BBBB00;">!</span> Error running quarto CLI from R.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> Could not evaluate cli `{}` expression: `captions`.</span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="font-weight: bold;">Caused by error:</span></span>
+<span class="r-err co"><span class="r-pr">#&gt;</span> <span style="color: #BBBB00;">!</span> object 'captions' not found</span>
 <span class="r-in"><span><span class="va">pr</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'pr' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">pr</span><span class="op">)</span></span></span>

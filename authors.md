@@ -12,13 +12,13 @@
 Source:
 [`DESCRIPTION`](https://github.com/pharmaR/val.report/blob/main/DESCRIPTION)
 
-Revilla Sancho L (2025). *val.report: Validation Reports*. R package
-version 0.0.0.9006, <https://github.com/pharmaR/val.report>.
+Revilla Sancho L (2026). *val.report: Validation Reports*. R package
+version 0.0.0.9007, <https://github.com/pharmaR/val.report>.
 
     @Manual{,
       title = {val.report: Validation Reports},
       author = {Lluís {Revilla Sancho}},
-      year = {2025},
-      note = {R package version 0.0.0.9006},
+      year = {2026},
+      note = {R package version 0.0.0.9007},
       url = {https://github.com/pharmaR/val.report},
     }
