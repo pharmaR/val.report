@@ -63,7 +63,7 @@ package_report <- function(
     }
 
     params$package <- normalizePath(params$package, mustWork = FALSE, winslash = "/")
-    if (!is.null(params$assessment_path) || !nzchar(params$assessment_path)) {
+    if (length(params$assessment_path) == 1L && !nzchar(params$assessment_path)) {
       params$assessment_path <- normalizePath(params$assessment_path, mustWork = TRUE, winslash = "/")
     }
 
