@@ -1,5 +1,3 @@
-
-
 #' Reports check results
 #'
 #' Experimental function to use the default log to create a report.
@@ -13,9 +11,9 @@
 #' # Requires the package to be installed (or be in inst/ folder)
 #' # check_reporter("checks/riskmetric.Rcheck")
 #'
-check_reporter <- function(path){
+check_reporter <- function(path) {
   log <- file.path(path, "00check.log")
-  lines <- readLines(log)
+  readLines(log)
 }
 
 
@@ -68,7 +66,5 @@ check_summary <- function(path) {
 }
 
 check_packages <- function(path) {
-
   check_packages_in_dir_details(path)
-
 }

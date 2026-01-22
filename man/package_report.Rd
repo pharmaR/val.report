@@ -19,7 +19,8 @@ package_report(
 
 \item{package_version}{Package version number.}
 
-\item{package}{Path where to find a package source to retrieve name and version number.}
+\item{package}{Path where to find a package source to retrieve name and
+version number.}
 
 \item{template_path}{Path to a custom quarto template file}
 
@@ -36,17 +37,18 @@ A path to the reports generated, called by its side effects.
 Reports about a package
 }
 \details{
-Please include source as part of \code{params} content. Source is returned after
-calling function \code{riskmetric::pkg_ref} before the risk assessment is executed
+Please include source as part of \code{params} content. Source is
+returned after calling function \code{riskmetric::pkg_ref} before the risk
+assessment is executed
 }
 \examples{
+pkg_rds_path <- system.file("assessments/dplyr.rds", package = "val.report")
 pr <- package_report(
   package_name = "dplyr",
   package_version = "1.1.4",
-  params = list(
-    assessment_path = system.file("assessments/dplyr.rds", package = "val.report"),
-    image = "rhub/ref-image")
+  params = list(assessment_path = pkg_rds_path, image = "rhub/ref-image")
 )
+
 pr
 file.remove(pr)
 }

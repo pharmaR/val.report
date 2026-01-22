@@ -88,3 +88,129 @@ get_image_name <- function(params) {
   } else if (is_empty(image)) image <- default_image
   image
 }
+
+#' Handler for complex option passing through from a quarto parameter
+#'
+#' Importantly, handles S7 objects which cannot be passed through as a quarto
+#' parameter because they can not be deparsed. Allows passing arbitrary
+#' expressions using the `!expr` prefix used by `yaml`.
+#'
+#' @export
+knitr_update_options <- function(opts) {
+  opts <- as.list(opts)
+  opt_is_char <- vapply(opts, is.character, logical(1L))
+  opt_is_expr <- opt_is_char
+  opt_is_expr[opt_is_char] <- startsWith(as.character(opts[opt_is_char]), "!expr")
+  opts[opt_is_expr] <- lapply(
+    opts[opt_is_expr],
+    function(expr) eval(parse(text = sub("^!expr", "", expr)))
+  )
+
+  do.call(options, opts)
+  opts
+}
+
+#' Create mutable header object
+#'
+#' Inject a custom document rendering hook into the knitr engine and return
+#' a mutable environment that we can modify, which will be used to update the
+#' knitr document header upon render completion.
+#'
+#' @export
+knitr_mutable_header <- function() {
+  header <- new.env(parent = emptyenv())
+
+  knitr::knit_hooks$set(document = local({
+    default_document_hook <- knitr::knit_hooks$get("document")
+    function(x, output) {
+      # extract and split our document front-matter and body
+      fm <- knitr:::yaml_front_matter(strsplit(x, "\n")[[1L]])
+      body <- sub("\\s*---.*---", "", x)
+
+      # pragmatically update front-matter at build-time
+      fm <- yaml::yaml.load(fm)
+      for (name in names(header)) {
+        fm[[name]] <- header[[name]]
+      }
+
+      # rebuild our document
+      x <- paste0(c("---", yaml::as.yaml(fm), "---", body), collapse = "\n")
+      default_document_hook(x)
+    }
+  }))
+
+  header
+}
+
+#' Special handler for emitting knitr logs
+#'
+#' @export
+knit_print.knitr_log <- local({
+  prefix <- "  \u205A "  # vertical two dot punctuation
+  last_log_trailing_newline <- FALSE
+
+  function(x, ...) {
+    # prefix newline only for the first message in each chunk
+    knitr_log_env <- environment(knitr_logger)
+    first_chunk_log <- knitr_log_env$first_chunk_log
+    knitr_log_env$first_chunk_log <- FALSE
+
+    # split content on non-character (or AsIs) objects
+    is_char <- vapply(x, is.character, logical(1L))
+    is_asis <- vapply(x, inherits, logical(1L), "AsIs")
+    is_char <- is_char & !is_asis
+    chunks <- cumsum(!is_char | c(FALSE, tail(is_char, -1) & !head(is_char, -1)))
+    is_char_chunk <- vapply(split(is_char, chunks), any, logical(1L))
+
+    # if output is a string, join them for pretty printing; otherwise capture
+    # console output for logging
+    x <- Map(
+      function(chunk, is_char) {
+        if (is_char) {
+          paste(chunk, collapse = "")
+        } else {
+          paste(capture.output(chunk[[1L]]), collapse = "\n")
+        }
+      },
+      chunk = split(x, chunks),
+      is_char = is_char_chunk
+    )
+
+    # determine where to inject newline prefixes
+    x <- paste0(x, collapse = "")
+    x <- strsplit(x, "(?<=\n)", perl = TRUE)[[1L]]
+    prefixed <- if (first_chunk_log || last_log_trailing_newline) TRUE else -1L
+    x[prefixed] <- paste0(prefix, x[prefixed])
+    x <- paste0(x, collapse = "")
+    last_log_trailing_newline <<- endsWith(x[[length(x)]], "\n")
+
+    # emit to stderr so that we see it immediately
+    if (first_chunk_log) cat("\n", file = stderr(), sep = "")
+    cat(x, file = stderr(), sep = "")
+  }
+})
+
+#' Create a knitr log function
+#'
+#' Sets necessary knitr hooks and returns a logging function that will emit
+#' messages to the console during knitting.
+#'
+#' @export
+knitr_logger <- local({
+  first_chunk_log <- TRUE
+
+  function() {
+    # reset our chunk start flag on chunk output
+    knitr::knit_hooks$set(chunk = local({
+      default_chunk_hook <- knitr::knit_hooks$get("chunk")
+      function(x, options) {
+        first_chunk_log <<- TRUE
+        default_chunk_hook(x, options)
+      }
+    }))
+
+    function(...) {
+      knitr::knit_print(structure(list(...), class = c("knitr_log", "list")))
+    }
+  }
+})
