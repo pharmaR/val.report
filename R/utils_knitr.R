@@ -1,3 +1,35 @@
+#' Handler for complex option passing through from a quarto parameter
+#'
+#' Importantly, handles S7 objects which cannot be passed through as a quarto
+#' parameter because they can not be deparsed. Allows passing arbitrary
+#' expressions using the `!expr` prefix used by `yaml`.
+#'
+#' @param opts A `list` of options. For any complex values that cannot be passed
+#'   through the `yaml` frontmatter, you may pass them as an expression string
+#'   such as `"!expr mtcars"`.
+#'
+#' @return The `opts` list after parsing any complex expressions. This function
+#'   is used primarily for modifying the global state by calling [`options()`]
+#'
+#' @export
+knitr_update_options <- function(opts) {
+  opts <- as.list(opts)
+  opt_is_char <- vapply(opts, is.character, logical(1L))
+  opt_is_expr <- opt_is_char
+  opt_is_expr[opt_is_char] <- startsWith(
+    as.character(opts[opt_is_char]),
+    "!expr"
+  )
+  opts[opt_is_expr] <- lapply(
+    opts[opt_is_expr],
+    function(expr) eval(parse(text = sub("^!expr", "", expr)))
+  )
+
+  do.call(options, opts)
+  opts
+}
+
+
 #' Create mutable header object
 #'
 #' Inject a custom document rendering hook into the knitr engine and return
