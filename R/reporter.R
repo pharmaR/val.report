@@ -70,7 +70,7 @@ package_report <- function(
     # Bug on https://github.com/quarto-dev/quarto-cli/issues/5765
     v <- quarto::quarto_version()
     if (v < package_version("1.7.13")) {
-      warning("Please install the latest (devel) version of Quarto")
+      warning("Please install the latest version of Quarto")
     }
 
     if (is.null(params$source)) warning("Please provide the source of the package assessment")
