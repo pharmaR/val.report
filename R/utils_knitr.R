@@ -29,8 +29,8 @@ knitr_mutable_header <- function(params = NULL, envir = parent.frame()) {
       default_document_hook <- knitr::knit_hooks$get("document")
       function(x, output) {
         # extract and split our document front-matter and body
-        fm <- knitr:::yaml_front_matter(strsplit(x, "\n")[[1L]])
-        body <- sub("^\\s*---.*---", "", x)
+        body <- sub("^\\s*(---|\\.\\.\\.).*\\1", "", x)
+        fm <- substring(x, 0L, nchar(x) - nchar(body))
 
         # pragmatically update front-matter at build-time
         fm <- yaml::yaml.load(fm)
@@ -52,6 +52,7 @@ knitr_mutable_header <- function(params = NULL, envir = parent.frame()) {
 #'
 #' @inheritParams knitr::knit_print
 #'
+#' @importFrom utils head tail capture.output
 #' @export
 # nolint start
 knit_print.knitr_log <- local({
