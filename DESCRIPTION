@@ -17,11 +17,13 @@ Imports:
     methods,
     htmltools,
     quarto (>= 1.4.4),
-    reactable
+    reactable,
+    yaml
 Suggests: 
     knitr,
     riskmetric (>= 0.2.4),
     rmarkdown,
+    S7,
     spelling,
     testthat (>= 3.0.0),
     withr (>= 3.0.2)
