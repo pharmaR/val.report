@@ -4,19 +4,40 @@
 \alias{knitr_update_options}
 \title{Handler for complex option passing through from a quarto parameter}
 \usage{
-knitr_update_options(opts)
+knitr_update_options(opts, envir = parent.frame())
 }
 \arguments{
-\item{opts}{A \code{list} of options. For any complex values that cannot be passed
-through the \code{yaml} frontmatter, you may pass them as an expression string
-such as \code{"!expr mtcars"}.}
+\item{opts}{A \code{list} of options. For any non-serializable values that would
+fail using your preferred interface to \code{knitr}, you may pass them as an
+expression string such as \code{"!expr mtcars"}. Notably,
+\code{\link[quarto:quarto_render]{quarto::quarto_render}}, which attempts to serialize objects for passing
+to the command-line \code{quarto}, will fail for such objects and requires the
+\code{"!expr"} prefix.}
 }
 \value{
 The \code{opts} list after parsing any complex expressions. This function
 is used primarily for modifying the global state by calling \code{\link[=options]{options()}}
 }
 \description{
-Importantly, handles S7 objects which cannot be passed through as a quarto
-parameter because they can not be deparsed. Allows passing arbitrary
-expressions using the \code{!expr} prefix used by \code{yaml}.
+Importantly, handles \code{\link[S7:new_class]{S7::new_class()}} objects which cannot be passed
+through as a \code{quarto} command-line parameter because they can not be
+deparsed. This helper allows passing arbitrary expressions using the
+\code{!expr} prefix, which is standardized by \code{yaml}.
+}
+\examples{
+# in a knitr document, we'll imagine we have some `params` object that we
+# want to use to set options:
+params <- list(options = list(
+  # most objects can be passed just fine
+  example_1 = list(a = 1L, b = "two"),
+
+  # but objects that cannot be deserialized from their serialized (using,
+  # for example [`dput()`], [`dump()`], and [`deparse()`]) expression would
+  # fail as they are attempted to be passed to the `quarto` command-line
+  # utility.
+  complex_option = '!expr S7::new_class("example")()'
+))
+
+knitr_update_options(params$options)
+
 }

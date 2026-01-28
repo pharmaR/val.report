@@ -1,18 +1,38 @@
 #' Handler for complex option passing through from a quarto parameter
 #'
-#' Importantly, handles S7 objects which cannot be passed through as a quarto
-#' parameter because they can not be deparsed. Allows passing arbitrary
-#' expressions using the `!expr` prefix used by `yaml`.
+#' Importantly, handles [`S7::new_class()`] objects which cannot be passed
+#' through as a `quarto` command-line parameter because they can not be
+#' deparsed. This helper allows passing arbitrary expressions using the
+#' `!expr` prefix, which is standardized by `yaml`.
 #'
-#' @param opts A `list` of options. For any complex values that cannot be passed
-#'   through the `yaml` frontmatter, you may pass them as an expression string
-#'   such as `"!expr mtcars"`.
+#' @param opts A `list` of options. For any non-serializable values that would
+#'   fail using your preferred interface to `knitr`, you may pass them as an
+#'   expression string such as `"!expr mtcars"`. Notably,
+#'   [`quarto::quarto_render`], which attempts to serialize objects for passing
+#'   to the command-line `quarto`, will fail for such objects and requires the
+#'   `"!expr"` prefix.
 #'
 #' @return The `opts` list after parsing any complex expressions. This function
 #'   is used primarily for modifying the global state by calling [`options()`]
 #'
+#' @examples
+#' # in a knitr document, we'll imagine we have some `params` object that we
+#' # want to use to set options:
+#' params <- list(options = list(
+#'   # most objects can be passed just fine
+#'   example_1 = list(a = 1L, b = "two"),
+#'
+#'   # but objects that cannot be deserialized from their serialized (using,
+#'   # for example [`dput()`], [`dump()`], and [`deparse()`]) expression would
+#'   # fail as they are attempted to be passed to the `quarto` command-line
+#'   # utility.
+#'   complex_option = '!expr S7::new_class("example")()'
+#' ))
+#'
+#' knitr_update_options(params$options)
+#'
 #' @export
-knitr_update_options <- function(opts) {
+knitr_update_options <- function(opts, envir = parent.frame()) {
   opts <- as.list(opts)
   opt_is_char <- vapply(opts, is.character, logical(1L))
   opt_is_expr <- opt_is_char
@@ -20,9 +40,10 @@ knitr_update_options <- function(opts) {
     as.character(opts[opt_is_char]),
     "!expr"
   )
+
   opts[opt_is_expr] <- lapply(
     opts[opt_is_expr],
-    function(expr) eval(parse(text = sub("^!expr", "", expr)))
+    function(expr) eval(parse(text = sub("^!expr", "", expr)), envir = envir)
   )
 
   do.call(options, opts)
@@ -40,6 +61,7 @@ knitr_update_options <- function(opts) {
 #' @param envir Only used when `params` is not provided, as the source for where
 #'   to try to discover the default knitr frontmatter parameters.
 #'
+#' @importFrom yaml yaml.load
 #' @export
 knitr_mutable_header <- function(params = NULL, envir = parent.frame()) {
   header <- new.env(parent = emptyenv())
