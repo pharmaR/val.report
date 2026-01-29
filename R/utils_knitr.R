@@ -129,6 +129,9 @@ knitr_logger_styles <- list(
 #' Special handler for emitting knitr logs
 #'
 #' @inheritParams knitr::knit_print
+#' @param output_style Choose which command-line output format to use when
+#'   logging. This will typically be set when a logger is created and should
+#'   not need to be manually provided.
 #'
 #' @importFrom utils head tail capture.output
 #' @export
