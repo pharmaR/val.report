@@ -112,6 +112,20 @@ knitr_mutable_header <- function() {
   header
 }
 
+#' Various elements used for tailoring output style to command-line utility
+knitr_logger_styles <- list(
+  knitr = list(
+    chunk_prefix = "\n",
+    line_prefix = "  \u205A ", # vertical two dot punctuation
+    chunk_suffix = ""
+  ),
+  quarto = list(
+    chunk_prefix = "\n",
+    line_prefix = "  ",
+    chunk_suffix = "\n"
+  )
+)
+
 #' Special handler for emitting knitr logs
 #'
 #' @inheritParams knitr::knit_print
@@ -121,17 +135,18 @@ knitr_mutable_header <- function() {
 # nolint start
 knit_print.knitr_log <- local({
   # nolint end
-
-  prefix <- "  \u205A " # vertical two dot punctuation
   last_log_trailing_newline <- FALSE
+  style <- knitr_logger_styles
 
   # "progress" is used by knitr::knit function internally to store whether
   # progress should be written to console, equivalent to !quiet
-  function(x, ...) {
+  function(x, ..., output_style = c("knitr", "quarto")) {
     quiet <- !knitr::opts_knit$get("progress")
     if (quiet) {
       return()
     }
+
+    output_style <- match.arg(output_style)
 
     # prefix newline only for the first message in each chunk
     knitr_log_env <- environment(knitr_logger)
@@ -165,13 +180,13 @@ knit_print.knitr_log <- local({
     x <- paste0(x, collapse = "")
     x <- strsplit(x, "(?<=\n)", perl = TRUE)[[1L]]
     prefixed <- if (first_chunk_log || last_log_trailing_newline) TRUE else -1L
-    x[prefixed] <- paste0(prefix, x[prefixed])
+    x[prefixed] <- paste0(style[[output_style]]$line_prefix, x[prefixed])
     x <- paste0(x, collapse = "")
     last_log_trailing_newline <<- endsWith(x[[length(x)]], "\n")
 
     # emit to stderr so that we see it immediately
     if (first_chunk_log) {
-      cat("\n", file = stderr(), sep = "")
+      cat(style[[output_style]]$chunk_prefix, file = stderr(), sep = "")
     }
 
     cat(x, file = stderr(), sep = "")
@@ -194,6 +209,7 @@ knit_print.knitr_log <- local({
 #' @export
 knitr_logger <- local({
   first_chunk_log <- TRUE
+  style <- knitr_logger_styles
 
   function() {
     if (!requireNamespace("knitr", quietly = TRUE)) {
@@ -201,11 +217,22 @@ knitr_logger <- local({
       return()
     }
 
+    # infer what what style to adopt for our console output
+    output_style <- "knitr"
+    if (nzchar(Sys.getenv("QUARTO_DOCUMENT_PATH"))) {
+      output_style <- "quarto"
+    }
+
     # reset our chunk start flag on chunk output
     knitr::knit_hooks$set(
       chunk = local({
         default_chunk_hook <- knitr::knit_hooks$get("chunk")
         function(x, options) {
+          # if we've emitted any logs in this chunk, print the prefix
+          if (!first_chunk_log) {
+            cat(style[[output_style]]$chunk_suffix, file = stderr(), sep = "")
+          }
+
           first_chunk_log <<- TRUE
           default_chunk_hook(x, options)
         }
@@ -213,7 +240,10 @@ knitr_logger <- local({
     )
 
     function(...) {
-      knitr::knit_print(structure(list(...), class = c("knitr_log", "list")))
+      knitr::knit_print(
+        structure(list(...), class = c("knitr_log", "list")),
+        output_style = output_style
+      )
     }
   }
 })

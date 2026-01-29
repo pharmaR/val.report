@@ -4,7 +4,7 @@
 \alias{knit_print.knitr_log}
 \title{Special handler for emitting knitr logs}
 \usage{
-knit_print.knitr_log(x, ...)
+knit_print.knitr_log(x, ..., output_style = c("knitr", "quarto"))
 }
 \arguments{
 \item{x}{An R object to be printed}
