@@ -2,28 +2,35 @@
 #'
 #' @param package_name Package name.
 #' @param package_version Package version number.
-#' @param package Path where to find a package source to retrieve name and version number.
-#' @param template_path Path to a directory with one quarto template file (and the files required for rendering it).
+#' @param package Path where to find a package source to retrieve name and
+#'   version number.
+#' @param template_path Path to a directory with one quarto template file (and
+#'   the files required for rendering it).
 #' @param output_format Output format for the report. Default is "all".
 #' @param params A list of execute parameters passed to the template
 #' @param ... Additional arguments passed to `quarto::quarto_render()`
 #'
 #' @return A path to the reports generated, called by its side effects.
-#' @details Please include source as part of `params` content. Source is returned after
-#' calling function `riskmetric::pkg_ref` before the risk assessment is executed
-#' @export
+#'
+#' @details Please include source as part of `params` content. Source is
+#'   returned after calling function `riskmetric::pkg_ref` before the risk
+#'   assessment is executed
+#'
 #' @examples
 #' options("valreport_output_dir" = tempdir())
 #' pr <- package_report(
 #'   package_name = "dplyr",
 #'   package_version = "1.1.4",
 #'   params = list(
-#'     assessment_path = system.file("assessments/dplyr.rds", package = "val.report"),
+#'     assessment_path =
+#'       system.file("assessments/dplyr.rds", package = "val.report"),
 #'     image = "rhub/ref-image"),
 #'     quiet = FALSE
 #' )
 #' pr
 #' file.remove(pr)
+#'
+#' @export
 package_report <- function(
   package_name,
   package_version,

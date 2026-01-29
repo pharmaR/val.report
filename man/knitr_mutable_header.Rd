@@ -6,12 +6,6 @@
 \usage{
 knitr_mutable_header()
 }
-\arguments{
-\item{params}{Optionally, provide default parameters to initialize with}
-
-\item{envir}{Only used when \code{params} is not provided, as the source for where
-to try to discover the default knitr frontmatter parameters.}
-}
 \description{
 Inject a custom document rendering hook into the knitr engine and return
 a mutable environment that we can modify, which will be used to update the

@@ -1,3 +1,4 @@
+#' @importFrom utils packageName
 roxygen2_knitr_note <- function() {
   sprintf(
     paste(
@@ -25,6 +26,7 @@ roxygen2_knitr_note <- function() {
 #'   [`quarto::quarto_render`], which attempts to serialize objects for passing
 #'   to the command-line `quarto`, will fail for such objects and requires the
 #'   `"!expr"` prefix.
+#' @param envir `environment` in which expressions should be evaluated.
 #'
 #' @return The `opts` list after parsing any complex expressions. This function
 #'   is used primarily for modifying the global state by calling [`options()`]
@@ -73,13 +75,14 @@ knitr_update_options <- function(opts, envir = parent.frame()) {
 #'
 #' @note `r roxygen2_knitr_note()`
 #'
-#' @param params Optionally, provide default parameters to initialize with
-#' @param envir Only used when `params` is not provided, as the source for where
-#'   to try to discover the default knitr frontmatter parameters.
-#'
 #' @importFrom yaml yaml.load
 #' @export
 knitr_mutable_header <- function() {
+  if (!requireNamespace("knitr", quietly = TRUE)) {
+    warning("`knitr` is not available for use with knitr helpers")
+    return()
+  }
+
   header <- new.env(parent = emptyenv())
 
   # add a hook that will replace the hard-coded front-matter with dynamic
@@ -90,7 +93,7 @@ knitr_mutable_header <- function() {
       function(x, options) {
         # extract and split our document front-matter and body
         x <- paste(x, collapse = "\n")
-        body <- sub("^\\s*(---|\\.\\.\\.).*\\1", "", x)
+        body <- sub("^\\s*(---|\\.\\.\\.).*?\\1", "", x, perl = TRUE)
         fm <- substring(x, 0L, nchar(x) - nchar(body))
 
         # pragmatically update front-matter at build-time
@@ -124,7 +127,8 @@ knit_print.knitr_log <- local({
 
   # "progress" is used by knitr::knit function internally to store whether
   # progress should be written to console, equivalent to !quiet
-  function(x, ..., quiet = !knitr::opts_knit$get("progress")) {
+  function(x, ...) {
+    quiet <- !knitr::opts_knit$get("progress")
     if (quiet) {
       return()
     }
@@ -192,6 +196,11 @@ knitr_logger <- local({
   first_chunk_log <- TRUE
 
   function() {
+    if (!requireNamespace("knitr", quietly = TRUE)) {
+      warning("`knitr` is not available for use with knitr helpers")
+      return()
+    }
+
     # reset our chunk start flag on chunk output
     knitr::knit_hooks$set(
       chunk = local({

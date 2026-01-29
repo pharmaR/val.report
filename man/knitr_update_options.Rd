@@ -13,6 +13,8 @@ expression string such as \code{"!expr mtcars"}. Notably,
 \code{\link[quarto:quarto_render]{quarto::quarto_render}}, which attempts to serialize objects for passing
 to the command-line \code{quarto}, will fail for such objects and requires the
 \code{"!expr"} prefix.}
+
+\item{envir}{\code{environment} in which expressions should be evaluated.}
 }
 \value{
 The \code{opts} list after parsing any complex expressions. This function

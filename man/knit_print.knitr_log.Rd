@@ -4,7 +4,7 @@
 \alias{knit_print.knitr_log}
 \title{Special handler for emitting knitr logs}
 \usage{
-knit_print.knitr_log(x, ..., quiet = !knitr::opts_knit$get("progress"))
+knit_print.knitr_log(x, ...)
 }
 \arguments{
 \item{x}{An R object to be printed}
