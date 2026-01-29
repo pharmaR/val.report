@@ -24,6 +24,9 @@ through as a \code{quarto} command-line parameter because they can not be
 deparsed. This helper allows passing arbitrary expressions using the
 \code{!expr} prefix, which is standardized by \code{yaml}.
 }
+\note{
+\code{val.report} \code{knitr} utilities are exported for use in reports maintained by the R Validation Hub. If you choose to use these functions for other purposes, be aware that these are not considered stable for broader use.
+}
 \examples{
 # in a knitr document, we'll imagine we have some `params` object that we
 # want to use to set options:

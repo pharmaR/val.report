@@ -4,7 +4,7 @@
 \alias{knitr_mutable_header}
 \title{Create mutable header object}
 \usage{
-knitr_mutable_header(params = NULL, envir = parent.frame())
+knitr_mutable_header()
 }
 \arguments{
 \item{params}{Optionally, provide default parameters to initialize with}
@@ -16,4 +16,7 @@ to try to discover the default knitr frontmatter parameters.}
 Inject a custom document rendering hook into the knitr engine and return
 a mutable environment that we can modify, which will be used to update the
 knitr document header upon render completion.
+}
+\note{
+\code{val.report} \code{knitr} utilities are exported for use in reports maintained by the R Validation Hub. If you choose to use these functions for other purposes, be aware that these are not considered stable for broader use.
 }

@@ -28,8 +28,19 @@ writeLines(
 title: Example
 params: { options: NULL }
 ---
-```{r}
+
+```{r, echo = FALSE}
 library(val.report)
+
+# logging
+log <- knitr_logger()
+log("test 1 2 3\n")
+
+# update header
+header <- knitr_mutable_header()
+header$title <- "Mutable Title"
+
+# update and save out options
 opts <- knitr_update_options(params$options)
 saveRDS(opts, "%s")
 ```',
@@ -54,13 +65,10 @@ test_that(
   {
     skip_if_not_installed("rmarkdown")
 
-    opts <- options()
-    on.exit(options(opts))
-
     # this would work even without our function by just setting
     # `options(params$options)`. However, we want to make sure it still works
     # when it gets passed through our helper
-    rmarkdown::render(example_qmd, params = params_r)
+    rmarkdown::render(example_qmd, params = params_r, quiet = TRUE)
     parsed_options <- example_parsed_options()
 
     expect_identical(parsed_options$example_2, example_2)
@@ -69,13 +77,13 @@ test_that(
 
 test_that("knitr_update_options is still required for quarto::quarto_render", {
   skip_if_not_installed("quarto")
-  skip_if(is.null(quarto::quarto_path()))
+  skip_if(
+    is.null(quarto::quarto_path()),
+    "system `quarto` executable unavailable"
+  )
 
   # ignore this test on cran because it is testing behavior of another package
   skip_on_cran()
-
-  opts <- options()
-  on.exit(options(opts))
 
   # if this test starts to fail, it probably means that S7 has found a solution
   # to serializing their objects, removing the need for `knitr_update_options`
@@ -96,10 +104,10 @@ test_that(
   ),
   {
     skip_if_not_installed("quarto")
-    skip_if(is.null(quarto::quarto_path()))
-
-    opts <- options()
-    on.exit(options(opts))
+    skip_if(
+      is.null(quarto::quarto_path()),
+      "system `quarto` executable unavailable"
+    )
 
     quarto::quarto_render(
       example_qmd,
@@ -112,3 +120,34 @@ test_that(
     expect_identical(parsed_options$example_2, example_2)
   }
 )
+
+test_that("knitr_mutable_header can modify yaml frontmatter during runtime", {
+  skip_if_not_installed("rmarkdown")
+
+  rmarkdown::render(
+    example_qmd,
+    # pass content that will be used to modify the yaml frontmatter at runtime
+    output_file = example_md <- tempfile(fileext = ".md"),
+    output_format = rmarkdown::github_document(),
+    quiet = TRUE
+  )
+
+  content <- readLines(example_md)
+  expect_match(paste(content, collapse = "\n"), "^Mutable Title\n===", )
+})
+
+test_that("knitr_logger writes to console output", {
+  skip_if_not_installed("rmarkdown")
+
+  output <- capture.output({
+    messages <- capture.output(type = "message", {
+      rmarkdown::render(
+        example_qmd,
+        output_file = example_md <- tempfile(fileext = ".md"),
+        output_format = rmarkdown::github_document()
+      )
+    })
+  })
+
+  expect_true(any(grepl("test 1 2 3", messages)))
+})

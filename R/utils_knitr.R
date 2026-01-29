@@ -1,9 +1,23 @@
+roxygen2_knitr_note <- function() {
+  sprintf(
+    paste(
+      "`%s` `knitr` utilities are exported for use in",
+      "reports maintained by the R Validation Hub.",
+      "If you choose to use these functions for other purposes, be aware",
+      "that these are not considered stable for broader use."
+    ),
+    packageName()
+  )
+}
+
 #' Handler for complex option passing through from a quarto parameter
 #'
 #' Importantly, handles [`S7::new_class()`] objects which cannot be passed
 #' through as a `quarto` command-line parameter because they can not be
 #' deparsed. This helper allows passing arbitrary expressions using the
 #' `!expr` prefix, which is standardized by `yaml`.
+#'
+#' @note `r roxygen2_knitr_note()`
 #'
 #' @param opts A `list` of options. For any non-serializable values that would
 #'   fail using your preferred interface to `knitr`, you may pass them as an
@@ -57,32 +71,25 @@ knitr_update_options <- function(opts, envir = parent.frame()) {
 #' a mutable environment that we can modify, which will be used to update the
 #' knitr document header upon render completion.
 #'
+#' @note `r roxygen2_knitr_note()`
+#'
 #' @param params Optionally, provide default parameters to initialize with
 #' @param envir Only used when `params` is not provided, as the source for where
 #'   to try to discover the default knitr frontmatter parameters.
 #'
 #' @importFrom yaml yaml.load
 #' @export
-knitr_mutable_header <- function(params = NULL, envir = parent.frame()) {
+knitr_mutable_header <- function() {
   header <- new.env(parent = emptyenv())
-
-  # if not provided, try to get params from envir
-  if (is.null(params)) {
-    params <- get0("params", envir = envir, ifnotfound = list())
-  }
-
-  # initialize with param values
-  for (name in names(params)) {
-    header[[name]] <- params[[name]]
-  }
 
   # add a hook that will replace the hard-coded front-matter with dynamic
   # front-matter just before rendering.
   knitr::knit_hooks$set(
     document = local({
       default_document_hook <- knitr::knit_hooks$get("document")
-      function(x, output) {
+      function(x, options) {
         # extract and split our document front-matter and body
+        x <- paste(x, collapse = "\n")
         body <- sub("^\\s*(---|\\.\\.\\.).*\\1", "", x)
         fm <- substring(x, 0L, nchar(x) - nchar(body))
 
@@ -115,7 +122,13 @@ knit_print.knitr_log <- local({
   prefix <- "  \u205A " # vertical two dot punctuation
   last_log_trailing_newline <- FALSE
 
-  function(x, ...) {
+  # "progress" is used by knitr::knit function internally to store whether
+  # progress should be written to console, equivalent to !quiet
+  function(x, ..., quiet = !knitr::opts_knit$get("progress")) {
+    if (quiet) {
+      return()
+    }
+
     # prefix newline only for the first message in each chunk
     knitr_log_env <- environment(knitr_logger)
     first_chunk_log <- knitr_log_env$first_chunk_log
@@ -156,6 +169,7 @@ knit_print.knitr_log <- local({
     if (first_chunk_log) {
       cat("\n", file = stderr(), sep = "")
     }
+
     cat(x, file = stderr(), sep = "")
   }
 })
@@ -164,6 +178,8 @@ knit_print.knitr_log <- local({
 #'
 #' Sets necessary knitr hooks and returns a logging function that will emit
 #' messages to the console during knitting.
+#'
+#' @note `r roxygen2_knitr_note()`
 #'
 #' @return A `function` accepting `...` arguments, which will be used for
 #'   printing out to the console while rendering the knitr document. Character
