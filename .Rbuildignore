@@ -16,3 +16,4 @@ _pkgdown.yaml
 pkgdown
 .github
 docs
+^\.github$
