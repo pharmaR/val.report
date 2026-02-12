@@ -2,6 +2,8 @@
 #'
 #' Catalogues characteristics of the R session and execution environment.
 #'
+#' @importFrom grDevices grSoftVersion
+#' @importFrom utils sessionInfo
 #' @export
 session <- function() {
   # NOTE: data that is provided as named character vectors are coerced to
