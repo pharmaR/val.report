@@ -14,14 +14,18 @@ BugReports: https://github.com/pharmaR/val.report/issues
 Depends:
     R (>= 4.3.0)
 Imports:
+    grDevices,
     methods,
     htmltools,
     quarto (>= 1.4.4),
-    reactable
+    reactable,
+    utils,
+    yaml
 Suggests: 
     knitr,
     riskmetric (>= 0.2.4),
     rmarkdown,
+    S7,
     spelling,
     testthat (>= 3.0.0),
     withr (>= 3.0.2)

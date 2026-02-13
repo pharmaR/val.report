@@ -12,7 +12,7 @@ extract_license <- function(assessment) {
   if (getRversion() < "4.4.0") {
     analyze_license <- utils::getFromNamespace("tools", "analyze_license") # nolint
   } else {
-    analyze_license <- tools::analyze_license
+    analyze_license <- getExportedValue("tools", "analyze_license")
   }
   license_analysis <- analyze_license(license_output$main)
 

@@ -1,5 +1,5 @@
 ---
-title: "This report is fully automated and builds on [`r params$image`](`r paste('https://hub.docker.com/r', params$image, sep = '/')`) image."
+title: "Validation Report"
 date-format: "YYYY-MM-DD hh:mm:ss"
 date: today
 published-title: ""
@@ -49,6 +49,9 @@ knitr::opts_chunk$set(
 library("tools")
 library("knitr")
 library("val.report")
+
+header <- val.report::knitr_mutable_header()
+log <- val.report::knitr_logger()
 ```
 
 # Context
@@ -58,6 +61,10 @@ library("val.report")
 pkg <- params$package
 pkg_name <- params$package_name
 pkg_version <- params$package_version
+
+log("Loaded package: ", pkg_name, " @ v", pkg_version, "\n")
+header$title <- paste0(pkg_name, " (v", pkg_version, ")")
+
 risk_path <- params$assessment_path
 image <- params$image
 ```

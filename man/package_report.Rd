@@ -19,9 +19,11 @@ package_report(
 
 \item{package_version}{Package version number.}
 
-\item{package}{Path where to find a package source to retrieve name and version number.}
+\item{package}{Path where to find a package source to retrieve name and
+version number.}
 
-\item{template_path}{Path to a directory with one quarto template file (and the files required for rendering it).}
+\item{template_path}{Path to a directory with one quarto template file (and
+the files required for rendering it).}
 
 \item{output_format}{Output format for the report. Default is "all".}
 
@@ -36,8 +38,9 @@ A path to the reports generated, called by its side effects.
 Reports about a package
 }
 \details{
-Please include source as part of \code{params} content. Source is returned after
-calling function \code{riskmetric::pkg_ref} before the risk assessment is executed
+Please include source as part of \code{params} content. Source is
+returned after calling function \code{riskmetric::pkg_ref} before the risk
+assessment is executed
 }
 \examples{
 options("valreport_output_dir" = tempdir())
@@ -45,10 +48,12 @@ pr <- package_report(
   package_name = "dplyr",
   package_version = "1.1.4",
   params = list(
-    assessment_path = system.file("assessments/dplyr.rds", package = "val.report"),
+    assessment_path =
+      system.file("assessments/dplyr.rds", package = "val.report"),
     image = "rhub/ref-image"),
     quiet = FALSE
 )
 pr
 file.remove(pr)
+
 }

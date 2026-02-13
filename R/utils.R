@@ -54,7 +54,8 @@ is.empty <- function(x) {
 #' @details Please check `riskmetric::pkg_ref_class_hierarchy` and `riskmetric::pkg_ref` code
 #' to see the allowed values and structure
 get_pkg_origin <- function(source) {
-  source_values <- unlist(riskmetric:::pkg_ref_class_hierarchy)
+  pkg_ref_classes <- getNamespace("riskmetric")[["pkg_ref_class_hierarchy"]]
+  source_values <- unlist(pkg_ref_classes)
   report_source_values <- c("Missing Origin", "Source Package", "Internal Package", "CRAN", "Bioconductor", "Github")
   names(report_source_values) <- source_values
   report_source_values[source]
