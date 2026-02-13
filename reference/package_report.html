@@ -65,11 +65,13 @@
 
 
 <dt id="arg-package">package<a class="anchor" aria-label="anchor" href="#arg-package"></a></dt>
-<dd><p>Path where to find a package source to retrieve name and version number.</p></dd>
+<dd><p>Path where to find a package source to retrieve name and
+version number.</p></dd>
 
 
 <dt id="arg-template-path">template_path<a class="anchor" aria-label="anchor" href="#arg-template-path"></a></dt>
-<dd><p>Path to a directory with one quarto template file (and the files required for rendering it).</p></dd>
+<dd><p>Path to a directory with one quarto template file (and
+the files required for rendering it).</p></dd>
 
 
 <dt id="arg-output-format">output_format<a class="anchor" aria-label="anchor" href="#arg-output-format"></a></dt>
@@ -90,8 +92,9 @@
     </div>
     <div class="section level2">
     <h2 id="details">Details<a class="anchor" aria-label="anchor" href="#details"></a></h2>
-    <p>Please include source as part of <code>params</code> content. Source is returned after
-calling function <code><a href="https://pharmar.github.io/riskmetric/reference/pkg_ref.html" class="external-link">riskmetric::pkg_ref</a></code> before the risk assessment is executed</p>
+    <p>Please include source as part of <code>params</code> content. Source is
+returned after calling function <code><a href="https://pharmar.github.io/riskmetric/reference/pkg_ref.html" class="external-link">riskmetric::pkg_ref</a></code> before the risk
+assessment is executed</p>
     </div>
 
     <div class="section level2">
@@ -101,7 +104,8 @@ calling function <code><a href="https://pharmar.github.io/riskmetric/reference/p
 <span class="r-in"><span>  package_name <span class="op">=</span> <span class="st">"dplyr"</span>,</span></span>
 <span class="r-in"><span>  package_version <span class="op">=</span> <span class="st">"1.1.4"</span>,</span></span>
 <span class="r-in"><span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span></span>
-<span class="r-in"><span>    assessment_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"assessments/dplyr.rds"</span>, package <span class="op">=</span> <span class="st">"val.report"</span><span class="op">)</span>,</span></span>
+<span class="r-in"><span>    assessment_path <span class="op">=</span></span></span>
+<span class="r-in"><span>      <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"assessments/dplyr.rds"</span>, package <span class="op">=</span> <span class="st">"val.report"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    image <span class="op">=</span> <span class="st">"rhub/ref-image"</span><span class="op">)</span>,</span></span>
 <span class="r-in"><span>    quiet <span class="op">=</span> <span class="cn">FALSE</span></span></span>
 <span class="r-in"><span><span class="op">)</span></span></span>
@@ -113,6 +117,9 @@ calling function <code><a href="https://pharmar.github.io/riskmetric/reference/p
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">2/51 [setup]                              </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">3/51                                      </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">4/51 [loading]                            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  Loaded package: dplyr @ v1.1.4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">5/51                                      </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">6/51 [read-riskmetric]                    </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">7/51                                      </span></span>
@@ -178,7 +185,7 @@ calling function <code><a href="https://pharmar.github.io/riskmetric/reference/p
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  document-css: false</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  link-citations: true</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  lang: en</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  title: This report is fully automated and builds on [`r params$image`](`r paste('https://hub.docker.com/r', params$image, sep = '/')`) image.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  title: Validation Report</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  date-format: YYYY-MM-DD hh:mm:ss</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  date: today</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  published-title: ''</span></span>
@@ -198,6 +205,9 @@ calling function <code><a href="https://pharmar.github.io/riskmetric/reference/p
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">2/51 [setup]                              </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">3/51                                      </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">4/51 [loading]                            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  Loaded package: dplyr @ v1.1.4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">5/51                                      </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">6/51 [read-riskmetric]                    </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">7/51                                      </span></span>
@@ -257,7 +267,7 @@ calling function <code><a href="https://pharmar.github.io/riskmetric/reference/p
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  variables: {}</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000; font-weight: bold;">metadata</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  title: This report is fully automated and builds on [`r params$image`](`r paste('https://hub.docker.com/r', params$image, sep = '/')`) image.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  title: Validation Report</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  date-format: YYYY-MM-DD hh:mm:ss</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  date: today</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  published-title: ''</span></span>
@@ -269,6 +279,9 @@ calling function <code><a href="https://pharmar.github.io/riskmetric/reference/p
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">2/51 [setup]                              </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">3/51                                      </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">4/51 [loading]                            </span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  Loaded package: dplyr @ v1.1.4</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> </span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">5/51                                      </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">6/51 [read-riskmetric]                    </span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">7/51                                      </span></span>
@@ -339,7 +352,7 @@ calling function <code><a href="https://pharmar.github.io/riskmetric/reference/p
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  header-includes:</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">    - \KOMAoption{captions}{tableheading}</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  block-headings: true</span></span>
-<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  title: This report is fully automated and builds on [`r params$image`](`r paste('https://hub.docker.com/r', params$image, sep = '/')`) image.</span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  title: Validation Report</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  date-format: YYYY-MM-DD hh:mm:ss</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  date: today</span></span>
 <span class="r-out co"><span class="r-pr">#&gt;</span> <span style="color: #BB0000;">  published-title: ''</span></span>
@@ -365,6 +378,7 @@ calling function <code><a href="https://pharmar.github.io/riskmetric/reference/p
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'pr' not found</span>
 <span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/base/files.html" class="external-link">file.remove</a></span><span class="op">(</span><span class="va">pr</span><span class="op">)</span></span></span>
 <span class="r-err co"><span class="r-pr">#&gt;</span> <span class="error">Error:</span> object 'pr' not found</span>
+<span class="r-in"><span></span></span>
 </code></pre></div>
     </div>
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>

@@ -70,7 +70,7 @@ options_report()
 #>         cli_server_default(msg)
 #>     }
 #> }
-#> <bytecode: 0x557de889e6b8>
+#> <bytecode: 0x55afd050d6b8>
 #> <environment: namespace:cli>
 #> 
 #> $catch.script.errors
@@ -87,6 +87,9 @@ options_report()
 #> 
 #> $cli.num_colors
 #> [1] 256
+#> 
+#> $complex_option
+#> <example>
 #> 
 #> $continue
 #> [1] "+ "
@@ -149,8 +152,8 @@ options_report()
 #> $device
 #> function (...) 
 #> ragg::agg_png(..., bg = bg)
-#> <bytecode: 0x557de8c8d188>
-#> <environment: 0x557de98f3598>
+#> <bytecode: 0x55afd1733be0>
+#> <environment: 0x55afd6c2b3c8>
 #> 
 #> $device.ask.default
 #> [1] FALSE
@@ -186,7 +189,7 @@ options_report()
 #>     local_long_messages()
 #>     warning(cnd)
 #> }
-#> <bytecode: 0x557de9ce8110>
+#> <bytecode: 0x55afd0e03958>
 #> <environment: namespace:rlang>
 #> 
 #> $devtools.install.args
@@ -222,10 +225,16 @@ options_report()
 #>             "extract_license"              "get_image_name" 
 #>                get_pkg_origin                 is_risk_error 
 #>              "get_pkg_origin"               "is_risk_error" 
-#>                options_report                package_report 
-#>              "options_report"              "package_report" 
-#>       prepare_namespace_table   replace_zero_or_false_by_no 
-#>     "prepare_namespace_table" "replace_zero_or_false_by_no" 
+#>          knit_print.knitr_log                  knitr_logger 
+#>        "knit_print.knitr_log"                "knitr_logger" 
+#>           knitr_logger_styles          knitr_mutable_header 
+#>         "knitr_logger_styles"        "knitr_mutable_header" 
+#>          knitr_update_options                options_report 
+#>        "knitr_update_options"              "options_report" 
+#>                package_report       prepare_namespace_table 
+#>              "package_report"     "prepare_namespace_table" 
+#>   replace_zero_or_false_by_no                       session 
+#> "replace_zero_or_false_by_no"                     "session" 
 #>                 summary_table                    val.report 
 #>               "summary_table"          "val.report-package" 
 #>            val.report-package 
@@ -248,6 +257,14 @@ options_report()
 #> 
 #> $example.ask
 #> [1] "default"
+#> 
+#> $example_1
+#> $example_1$a
+#> [1] 1
+#> 
+#> $example_1$b
+#> [1] "two"
+#> 
 #> 
 #> $expressions
 #> [1] 5000
@@ -343,7 +360,7 @@ options_report()
 #> [1] FALSE
 #> 
 #> $rlang_trace_top_env
-#> <environment: 0x557de7a644f0>
+#> <environment: 0x55afd1dae538>
 #> 
 #> $scipen
 #> [1] 0
@@ -388,7 +405,7 @@ options_report()
 #> $str$formatNum
 #> function (x, ...) 
 #> format(x, trim = TRUE, drop0trailing = TRUE, ...)
-#> <environment: 0x557de68e9f68>
+#> <environment: 0x55afce558f68>
 #> 
 #> 
 #> $str.dendrogram.last

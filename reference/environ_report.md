@@ -28,7 +28,7 @@ A character vector with environmental variables.
 environ_report()
 #> ACCEPT_EULA             Y
 #> ACTIONS_ORCHESTRATION_ID
-#>                         2cc8d408-995d-40f2-84c0-3524774fd390.pkgdown.__default
+#>                         f529ec52-d3b8-4231-adbd-3c0b3abb73da.pkgdown.__default
 #> ACTIONS_RUNNER_ACTION_ARCHIVE_CACHE
 #>                         /opt/actionarchivecache
 #> AGENT_TOOLSDIRECTORY    /opt/hostedtoolcache
@@ -65,19 +65,19 @@ environ_report()
 #> GITHUB_ACTION_REF       
 #> GITHUB_ACTION_REPOSITORY
 #>                         
-#> GITHUB_ACTOR            llrs-roche
-#> GITHUB_ACTOR_ID         185338939
+#> GITHUB_ACTOR            dgkf
+#> GITHUB_ACTOR_ID         18220321
 #> GITHUB_API_URL          https://api.github.com
 #> GITHUB_BASE_REF         
-#> GITHUB_ENV              /home/runner/work/_temp/_runner_file_commands/set_env_998db176-0168-4698-b9b6-e063544bf4d7
+#> GITHUB_ENV              /home/runner/work/_temp/_runner_file_commands/set_env_3f558eee-497f-450e-939c-3ef6c55a7219
 #> GITHUB_EVENT_NAME       push
 #> GITHUB_EVENT_PATH       /home/runner/work/_temp/_github_workflow/event.json
 #> GITHUB_GRAPHQL_URL      https://api.github.com/graphql
 #> GITHUB_HEAD_REF         
 #> GITHUB_JOB              pkgdown
-#> GITHUB_OUTPUT           /home/runner/work/_temp/_runner_file_commands/set_output_998db176-0168-4698-b9b6-e063544bf4d7
-#> GITHUB_PAT              ghs_kBmEnyrLTukyCjNROnaTTP49jBywHL3RlHoc
-#> GITHUB_PATH             /home/runner/work/_temp/_runner_file_commands/add_path_998db176-0168-4698-b9b6-e063544bf4d7
+#> GITHUB_OUTPUT           /home/runner/work/_temp/_runner_file_commands/set_output_3f558eee-497f-450e-939c-3ef6c55a7219
+#> GITHUB_PAT              ghs_PUQ8zVGJfebCs9BdUlYOBk2h3F9nIf0OmYLA
+#> GITHUB_PATH             /home/runner/work/_temp/_runner_file_commands/add_path_3f558eee-497f-450e-939c-3ef6c55a7219
 #> GITHUB_REF              refs/heads/main
 #> GITHUB_REF_NAME         main
 #> GITHUB_REF_PROTECTED    false
@@ -90,39 +90,39 @@ environ_report()
 #>                         42115094
 #> GITHUB_RETENTION_DAYS   90
 #> GITHUB_RUN_ATTEMPT      1
-#> GITHUB_RUN_ID           21912371314
-#> GITHUB_RUN_NUMBER       28
+#> GITHUB_RUN_ID           21995116047
+#> GITHUB_RUN_NUMBER       33
 #> GITHUB_SERVER_URL       https://github.com
-#> GITHUB_SHA              cb0bc36676e109f31411ec9767e334c2c93a265e
-#> GITHUB_STATE            /home/runner/work/_temp/_runner_file_commands/save_state_998db176-0168-4698-b9b6-e063544bf4d7
-#> GITHUB_STEP_SUMMARY     /home/runner/work/_temp/_runner_file_commands/step_summary_998db176-0168-4698-b9b6-e063544bf4d7
+#> GITHUB_SHA              217d7fa476bbf1222861fb0468156e4914137886
+#> GITHUB_STATE            /home/runner/work/_temp/_runner_file_commands/save_state_3f558eee-497f-450e-939c-3ef6c55a7219
+#> GITHUB_STEP_SUMMARY     /home/runner/work/_temp/_runner_file_commands/step_summary_3f558eee-497f-450e-939c-3ef6c55a7219
 #> GITHUB_TRIGGERING_ACTOR
-#>                         llrs-roche
+#>                         dgkf
 #> GITHUB_WORKFLOW         pkgdown.yaml
 #> GITHUB_WORKFLOW_REF     pharmaR/val.report/.github/workflows/pkgdown.yaml@refs/heads/main
-#> GITHUB_WORKFLOW_SHA     cb0bc36676e109f31411ec9767e334c2c93a265e
+#> GITHUB_WORKFLOW_SHA     217d7fa476bbf1222861fb0468156e4914137886
 #> GITHUB_WORKSPACE        /home/runner/work/val.report/val.report
 #> GOROOT_1_22_X64         /opt/hostedtoolcache/go/1.22.12/x64
 #> GOROOT_1_23_X64         /opt/hostedtoolcache/go/1.23.12/x64
-#> GOROOT_1_24_X64         /opt/hostedtoolcache/go/1.24.12/x64
-#> GOROOT_1_25_X64         /opt/hostedtoolcache/go/1.25.6/x64
+#> GOROOT_1_24_X64         /opt/hostedtoolcache/go/1.24.13/x64
+#> GOROOT_1_25_X64         /opt/hostedtoolcache/go/1.25.7/x64
 #> GRADLE_HOME             /usr/share/gradle-9.3.1
 #> HOME                    /home/runner
 #> HOMEBREW_CLEANUP_PERIODIC_FULL_DAYS
 #>                         3650
 #> HOMEBREW_NO_AUTO_UPDATE
 #>                         1
-#> INVOCATION_ID           ddc41e7f44954637bac0f04dea65b0d3
+#> INVOCATION_ID           0707df9ad1484838a04e32f3b3023317
 #> IN_PKGDOWN              true
 #> ImageOS                 ubuntu24
-#> ImageVersion            20260201.15.1
+#> ImageVersion            20260209.23.1
 #> JAVA_HOME               /usr/lib/jvm/temurin-17-jdk-amd64
 #> JAVA_HOME_11_X64        /usr/lib/jvm/temurin-11-jdk-amd64
 #> JAVA_HOME_17_X64        /usr/lib/jvm/temurin-17-jdk-amd64
 #> JAVA_HOME_21_X64        /usr/lib/jvm/temurin-21-jdk-amd64
 #> JAVA_HOME_25_X64        /usr/lib/jvm/temurin-25-jdk-amd64
 #> JAVA_HOME_8_X64         /usr/lib/jvm/temurin-8-jdk-amd64
-#> JOURNAL_STREAM          9:8912
+#> JOURNAL_STREAM          9:15396
 #> LANG                    C.UTF-8
 #> LANGUAGE                en-US
 #> LC_COLLATE              C
@@ -148,11 +148,11 @@ environ_report()
 #> RSPM                    https://packagemanager.posit.co/cran/__linux__/noble/latest
 #> RUNNER_ARCH             X64
 #> RUNNER_ENVIRONMENT      github-hosted
-#> RUNNER_NAME             GitHub Actions 1000003128
+#> RUNNER_NAME             GitHub Actions 1000003471
 #> RUNNER_OS               Linux
 #> RUNNER_TEMP             /home/runner/work/_temp
 #> RUNNER_TOOL_CACHE       /opt/hostedtoolcache
-#> RUNNER_TRACKING_ID      github_f23863c9-0163-4437-9164-e62d80a098f3
+#> RUNNER_TRACKING_ID      github_7dab4be2-76f5-41f8-b5f1-87b457f7dcbd
 #> RUNNER_WORKSPACE        /home/runner/work/val.report
 #> R_ARCH                  
 #> R_BROWSER               xdg-open
@@ -169,7 +169,7 @@ environ_report()
 #> R_PLATFORM              x86_64-pc-linux-gnu
 #> R_PRINTCMD              /usr/bin/lpr
 #> R_RD4PDF                times,inconsolata,hyper
-#> R_SESSION_TMPDIR        /tmp/RtmpfDPMtQ
+#> R_SESSION_TMPDIR        /tmp/RtmpAUKKRk
 #> R_SHARE_DIR             /opt/R/4.5.2/lib/R/share
 #> R_STRIP_SHARED_LIB      strip --strip-unneeded
 #> R_STRIP_STATIC_LIB      strip --strip-debug
@@ -182,7 +182,7 @@ environ_report()
 #> SHELL                   /bin/bash
 #> SHLVL                   0
 #> SWIFT_PATH              /usr/share/swift/usr/bin
-#> SYSTEMD_EXEC_PID        1989
+#> SYSTEMD_EXEC_PID        2038
 #> TAR                     /usr/bin/tar
 #> TZ                      UTC
 #> USER                    runner

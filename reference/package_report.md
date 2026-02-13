@@ -68,7 +68,8 @@ pr <- package_report(
   package_name = "dplyr",
   package_version = "1.1.4",
   params = list(
-    assessment_path = system.file("assessments/dplyr.rds", package = "val.report"),
+    assessment_path =
+      system.file("assessments/dplyr.rds", package = "val.report"),
     image = "rhub/ref-image"),
     quiet = FALSE
 )
@@ -80,6 +81,9 @@ pr <- package_report(
 #> 2/51 [setup]                              
 #> 3/51                                      
 #> 4/51 [loading]                            
+#> 
+#>   Loaded package: dplyr @ v1.1.4
+#> 
 #> 5/51                                      
 #> 6/51 [read-riskmetric]                    
 #> 7/51                                      
@@ -145,7 +149,7 @@ pr <- package_report(
 #>   document-css: false
 #>   link-citations: true
 #>   lang: en
-#>   title: This report is fully automated and builds on [`r params$image`](`r paste('https://hub.docker.com/r', params$image, sep = '/')`) image.
+#>   title: Validation Report
 #>   date-format: YYYY-MM-DD hh:mm:ss
 #>   date: today
 #>   published-title: ''
@@ -165,6 +169,9 @@ pr <- package_report(
 #> 2/51 [setup]                              
 #> 3/51                                      
 #> 4/51 [loading]                            
+#> 
+#>   Loaded package: dplyr @ v1.1.4
+#> 
 #> 5/51                                      
 #> 6/51 [read-riskmetric]                    
 #> 7/51                                      
@@ -224,7 +231,7 @@ pr <- package_report(
 #>   variables: {}
 #>   
 #> metadata
-#>   title: This report is fully automated and builds on [`r params$image`](`r paste('https://hub.docker.com/r', params$image, sep = '/')`) image.
+#>   title: Validation Report
 #>   date-format: YYYY-MM-DD hh:mm:ss
 #>   date: today
 #>   published-title: ''
@@ -236,6 +243,9 @@ pr <- package_report(
 #> 2/51 [setup]                              
 #> 3/51                                      
 #> 4/51 [loading]                            
+#> 
+#>   Loaded package: dplyr @ v1.1.4
+#> 
 #> 5/51                                      
 #> 6/51 [read-riskmetric]                    
 #> 7/51                                      
@@ -306,7 +316,7 @@ pr <- package_report(
 #>   header-includes:
 #>     - \KOMAoption{captions}{tableheading}
 #>   block-headings: true
-#>   title: This report is fully automated and builds on [`r params$image`](`r paste('https://hub.docker.com/r', params$image, sep = '/')`) image.
+#>   title: Validation Report
 #>   date-format: YYYY-MM-DD hh:mm:ss
 #>   date: today
 #>   published-title: ''
