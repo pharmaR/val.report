@@ -28,6 +28,8 @@ Suggests:
     spelling,
     testthat (>= 3.0.0),
     withr (>= 3.0.2)
+Remotes:
+    val.meter=github::pharmaR/val.meter
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
