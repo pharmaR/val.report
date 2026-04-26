@@ -1,62 +1,7 @@
-include_exclude_from <- function(from, include = NULL, exclude = NULL) {
-  if (!is.null(include) && !is.null(exclude)) {
-    names <- setdiff(include, exclude)
-  } else if (is.null(exclude) && !is.null(include)) {
-    names <- include
-  } else if (is.null(exclude) && is.null(include)) {
-    names <- from
-  } else if (is.null(include) && !is.null(exclude)) {
-    names <- setdiff(from, exclude)
-  }
-  names
-}
-
-
-fill_in <- function(list, names) {
-  missing_names <- setdiff(names(list), names)
-  list[missing_names] <- NA
-  list
-}
-
-`%||%` <-  function (x, y) {
+`%||%` <- function(x, y) {
   if (is.null(x)) y else x
 }
 
-output_dir <- function() {
-  getOption("valreport_output_dir",
-            default = Sys.getenv("VALREPORT_OUTPUT_DIR",
-                                 unset = getwd()
-            )
-  )
-}
-
-rendering_dir <- function() {
-  opt <- getOption("valreport_rendering_dir", default = NULL)
-  env <- Sys.getenv("VALREPORT_RENDERING_DIR", unset = tempdir())
-
-  opt %||% env
-}
-
-is_empty <- function(x) {
-  is.null(x) || is.na(x) || !nzchar(x)
-}
-
-
-is.empty <- function(x) {
-  is.null(x) || is.na(x) || !nzchar(x)
-}
-
-#' Return string to display Origin depending on source of the assessment
-#'
-#' @param source return value of function `pkg_ref`
-#' @returns depending on source transformed string for the origin
-#' @keywords internal
-#' @details Please check `riskmetric::pkg_ref_class_hierarchy` and `riskmetric::pkg_ref` code
-#' to see the allowed values and structure
-get_pkg_origin <- function(source) {
-  pkg_ref_classes <- getNamespace("riskmetric")[["pkg_ref_class_hierarchy"]]
-  source_values <- unlist(pkg_ref_classes)
-  report_source_values <- c("Missing Origin", "Source Package", "Internal Package", "CRAN", "Bioconductor", "Github")
-  names(report_source_values) <- source_values
-  report_source_values[source]
+is_rds_path <- function(x) {
+  is.character(x) && file.exists(x) && endsWith(x, ".Rds")
 }

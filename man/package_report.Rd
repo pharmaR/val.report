@@ -10,18 +10,53 @@ package_report(
   options = val_options(plus = c("width")),
   template = system.file("report", "template.qmd", package = "val.report"),
   output_dir = getwd(),
+  quiet = FALSE,
   ...
 )
+}
+\arguments{
+\item{package}{A package name, source code file path, url or path to an
+\code{Rds} file of a \link[val.meter:pkg]{val.meter::pkg} object . For details on accepted inputs,
+see \link[val.meter:pkg]{val.meter::pkg}.}
+
+\item{session}{A \code{list} of session information or a path to an \code{Rds} of a
+\link{session} object. If \code{NULL}, the session informatino will be
+derived when the package metrics are calculated. Will error if only one
+of \code{package} or \code{session} is provided as a \code{Rds} file.}
+
+\item{options}{Additional options to use when deriving package metrics. By
+default, inherits any \verb{val.*} options as well as a select few global
+environment variables.}
+
+\item{template}{A \code{quarto} template file to use. See details for more
+information.}
+
+\item{output_dir}{\code{character(1L)} directory path in which rendered files
+should be generated. Defaults to the current working directory.}
+
+\item{quiet}{\code{logical(1L)} flag indicating whether output should be emitted
+to the console when rendering the report.}
+
+\item{...}{Additional arguments passed to \code{\link[quarto:quarto_render]{quarto::quarto_render()}}}
 }
 \description{
 Generates an R Validation Hub package report
 }
+\details{
+This function uses a pre-built \code{quarto} extension which provides its own
+template document. To replace the existing template with your own without
+further changes, ensure that your template exposes the same parameters.
+Custom templates likely want to begin as a copy of the original report.
+}
 \examples{
+\dontrun{
 options(
+  width = 80L,
   val.meter.logs = TRUE,
   val.meter.policy = val.meter::policy(permissions = TRUE)
 )
 
 package_report(package = "path/to/package")
+}
 
 }

@@ -1,13 +1,42 @@
 #' Generates an R Validation Hub package report
 #'
+#' @details
+#' This function uses a pre-built `quarto` extension which provides its own
+#' template document. To replace the existing template with your own without
+#' further changes, ensure that your template exposes the same parameters.
+#' Custom templates likely want to begin as a copy of the original report.
+#'
+#' @param package A package name, source code file path, url or path to an
+#'   `Rds` file of a [val.meter::pkg] object . For details on accepted inputs,
+#'   see [val.meter::pkg].
+#' @param session A `list` of session information or a path to an `Rds` of a
+#'   [val.report::session] object. If `NULL`, the session informatino will be
+#'   derived when the package metrics are calculated. Will error if only one
+#'   of `package` or `session` is provided as a `Rds` file.
+#' @param options Additional options to use when deriving package metrics. By
+#'   default, inherits any `val.*` options as well as a select few global
+#'   environment variables.
+#' @param template A `quarto` template file to use. See details for more
+#'   information.
+#' @param output_dir `character(1L)` directory path in which rendered files
+#'   should be generated. Defaults to the current working directory.
+#' @param quiet `logical(1L)` flag indicating whether output should be emitted
+#'   to the console when rendering the report.
+#' @param ... Additional arguments passed to [quarto::quarto_render()]
+#'
 #' @examples
+#' \dontrun{
 #' options(
+#'   width = 80L,
 #'   val.meter.logs = TRUE,
 #'   val.meter.policy = val.meter::policy(permissions = TRUE)
 #' )
 #'
 #' package_report(package = "path/to/package")
+#' }
 #'
+#' @importFrom quarto quarto_version quarto_render
+#' @importFrom callr r
 #' @export
 package_report <- function(
   package = NULL,
@@ -18,6 +47,9 @@ package_report <- function(
   quiet = FALSE,
   ...
 ) {
+  # used for side effect of emitting errors when quarto is not available
+  quarto::quarto_version()
+
   # temp dir for report output
   quarto_out_dir <- tempfile("val_report_")
   dir.create(quarto_out_dir)
@@ -73,6 +105,7 @@ package_report <- function(
   )
 }
 
+#' @importFrom tools file_ext
 rename_quarto_outputs <- function(input_dir, output_dir, output_stem) {
   files <- list.files(input_dir, full.names = TRUE)
 
@@ -90,9 +123,12 @@ rename_quarto_outputs <- function(input_dir, output_dir, output_stem) {
   files
 }
 
+#' @importFrom S7 convert
+#' @importFrom val.meter pkg metrics
 callr_val_package <- function(package, options, artifacts_dir, quiet) {
-  library(S7)
-  library(val.meter)
+  requireNamespace("S7")
+  requireNamespace("val.meter")
+  requireNamespace("val.report")
 
   # pass through configured options
   options(options)
@@ -120,12 +156,4 @@ callr_val_package <- function(package, options, artifacts_dir, quiet) {
 val_options <- function(prefix = "val.", plus = character(0L)) {
   opts <- options()
   append(opts[startsWith(names(opts), prefix)], opts[plus])
-}
-
-is_rds_path <- function(x) {
-  is.character(x) && file.exists(x) && endsWith(x, ".Rds")
-}
-
-is_empty <- function(x) {
-  is.null(x) || is.na(x) || !nzchar(x)
 }
