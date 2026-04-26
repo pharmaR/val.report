@@ -2,58 +2,26 @@
 % Please edit documentation in R/reporter.R
 \name{package_report}
 \alias{package_report}
-\title{Reports about a package}
+\title{Generates an R Validation Hub package report}
 \usage{
 package_report(
-  package_name,
-  package_version,
   package = NULL,
-  template_path = system.file("report/package", package = "val.report"),
-  output_format = "all",
-  params = list(),
+  session = NULL,
+  options = val_options(plus = c("width")),
+  template = system.file("report", "template.qmd", package = "val.report"),
+  output_dir = getwd(),
   ...
 )
 }
-\arguments{
-\item{package_name}{Package name.}
-
-\item{package_version}{Package version number.}
-
-\item{package}{Path where to find a package source to retrieve name and
-version number.}
-
-\item{template_path}{Path to a directory with one quarto template file (and
-the files required for rendering it).}
-
-\item{output_format}{Output format for the report. Default is "all".}
-
-\item{params}{A list of execute parameters passed to the template}
-
-\item{...}{Additional arguments passed to \code{quarto::quarto_render()}}
-}
-\value{
-A path to the reports generated, called by its side effects.
-}
 \description{
-Reports about a package
-}
-\details{
-Please include source as part of \code{params} content. Source is
-returned after calling function \code{riskmetric::pkg_ref} before the risk
-assessment is executed
+Generates an R Validation Hub package report
 }
 \examples{
-options("valreport_output_dir" = tempdir())
-pr <- package_report(
-  package_name = "dplyr",
-  package_version = "1.1.4",
-  params = list(
-    assessment_path =
-      system.file("assessments/dplyr.rds", package = "val.report"),
-    image = "rhub/ref-image"),
-    quiet = FALSE
+options(
+  val.meter.logs = TRUE,
+  val.meter.policy = val.meter::policy(permissions = TRUE)
 )
-pr
-file.remove(pr)
+
+package_report(package = "path/to/package")
 
 }

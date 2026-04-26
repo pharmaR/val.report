@@ -1,172 +1,131 @@
-#' Reports about a package
-#'
-#' @param package_name Package name.
-#' @param package_version Package version number.
-#' @param package Path where to find a package source to retrieve name and
-#'   version number.
-#' @param template_path Path to a directory with one quarto template file (and
-#'   the files required for rendering it).
-#' @param output_format Output format for the report. Default is "all".
-#' @param params A list of execute parameters passed to the template
-#' @param ... Additional arguments passed to `quarto::quarto_render()`
-#'
-#' @return A path to the reports generated, called by its side effects.
-#'
-#' @details Please include source as part of `params` content. Source is
-#'   returned after calling function `riskmetric::pkg_ref` before the risk
-#'   assessment is executed
+#' Generates an R Validation Hub package report
 #'
 #' @examples
-#' options("valreport_output_dir" = tempdir())
-#' pr <- package_report(
-#'   package_name = "dplyr",
-#'   package_version = "1.1.4",
-#'   params = list(
-#'     assessment_path =
-#'       system.file("assessments/dplyr.rds", package = "val.report"),
-#'     image = "rhub/ref-image"),
-#'     quiet = FALSE
+#' options(
+#'   val.meter.logs = TRUE,
+#'   val.meter.policy = val.meter::policy(permissions = TRUE)
 #' )
-#' pr
-#' file.remove(pr)
+#'
+#' package_report(package = "path/to/package")
 #'
 #' @export
 package_report <- function(
-  package_name,
-  package_version,
   package = NULL,
-  template_path = system.file("report/package", package = "val.report"),
-  output_format = "all",
-  params = list(),
+  session = NULL,
+  options = val_options(plus = c("width")),
+  template = system.file("report", "template.qmd", package = "val.report"),
+  output_dir = getwd(),
+  quiet = FALSE,
   ...
 ) {
-  empty_pkg_info <- is.empty(package_name) && is.empty(package_version)
-  if (empty_pkg_info && !is.empty(package)) {
-    package_name <- basename(package)
-    desc <- read.dcf(file.path(package, "DESCRIPTION"))
+  # temp dir for report output
+  quarto_out_dir <- tempfile("val_report_")
+  dir.create(quarto_out_dir)
 
-    stopifnot(
-      "Mismatch between path and DESCRIPTION name" = package_name ==
-        desc[, "Package"]
-    )
-    package_version <- desc[, "Version"]
-    params$package <- package
-    Sys.setenv("INPUT_REPORT_PKG_DIR" = package)
-  } else if (empty_pkg_info && is.empty(package)) {
-    stop("Package information missing for the report")
+  # temp dir for passing Rds content from subprocess to parent
+  quarto_artifacts_dir <- tempfile("val_artifacts_")
+  dir.create(quarto_artifacts_dir)
+
+  # derive metrics for package, write out to Rds
+  if (is_rds_path(package) && !is_rds_path(session)) {
+    stop("package provided as Rds file path, but session was not.")
+  } else if (!is.null(session)) {
+    stop("session provided, but package yet to be computed.")
   } else {
-    params$package <- package_name
-  }
-
-  full_name <- paste0(package_name, "_v", package_version)
-  output_file <- paste0("validation_report_", full_name, ".qmd")
-
-  params$package_name <- package_name
-  params$package_version <- package_version
-  params$image <- get_image_name(params)
-
-  if (is.null(template_path) || !nzchar(template_path)) {
-    template_path <- system.file("report/package", package = "val.report")
-  } else if (!dir.exists(template_path)) {
-    stop("Template directory is not available")
-  }
-
-  params$package <- normalizePath(
-    params$package,
-    mustWork = FALSE,
-    winslash = "/"
-  )
-  if (length(params$assessment_path) == 1L && !nzchar(params$assessment_path)) {
-    params$assessment_path <- normalizePath(
-      params$assessment_path,
-      mustWork = TRUE,
-      winslash = "/"
+    callr_args <- list(
+      package = package,
+      options = options,
+      artifacts_dir = quarto_artifacts_dir,
+      quiet = quiet
     )
-  }
 
-  # Bug on https://github.com/quarto-dev/quarto-cli/issues/5765
-  v <- quarto::quarto_version()
-  if (v < package_version("1.7.13")) {
-    warning("Please install the latest (devel) version of Quarto")
-  }
-
-  if (is.null(params$source)) {
-    warning("Please provide the source of the package assessment")
-  }
-
-  # https://github.com/quarto-dev/quarto-r/issues/81#issuecomment-1375691267
-  # quarto rendering happens in the same place as the file/project
-  # To avoid issues copy to a different place and render there.
-  render_dir <- output_dir()
-  if (!dir.exists(render_dir)) {
-    render_dir <- paste0(render_dir, "/")
-    if (!dir.exists(render_dir)) {
-      stop(
-        "Render directory doesn't exists. Please check the 'getOptions(\"valreport_output_dir\")' and sys.getEnv(\"VALREPORT_OUTPUT_DIR\")"
-      )
-    }
-  }
-  files_to_copy <- list.files(template_path, full.names = TRUE)
-  fc <- file.copy(
-    from = files_to_copy,
-    to = render_dir,
-    overwrite = TRUE,
-    copy.date = TRUE
-  )
-
-  if (any(!fc)) {
-    stop("Copying to the rendering directory failed.")
-  }
-
-  template_all_files <- list.files(render_dir, full.names = TRUE)
-  template <- template_all_files[endsWith(template_all_files, "qmd")]
-
-  if (length(template) > 1) {
-    stop(
-      "There are more than one template!\n",
-      "Please have only one quarto file on the directory."
+    res <- callr::r(
+      callr_val_package,
+      args = callr_args,
+      show = TRUE,
+      stderr = "2>&1"
     )
+
+    package <- res$package
+    session <- res$session
+    options <- res$options # reset input options, no longer with Rds input
   }
 
-  file_template <- file.path(
-    render_dir,
-    paste0("validation_report_", full_name, ".qmd")
-  )
-  file.rename(template, file_template)
-
-  # replace the title of the place header by the package name and header
-  top_page_file <- readLines(file.path(render_dir, "top_page.html"))
-  title_line <- grep("<p", top_page_file)
-  top_page_file[title_line] <- htmltools::p(paste0(
-    "Validation Report - ",
-    package_name,
-    "@",
-    package_version
-  )) |>
-    as.character()
-  writeLines(top_page_file, file.path(render_dir, "top_page.html"))
-
-  pre_rendering <- list.files(render_dir, full.names = TRUE)
-
-  out <- quarto::quarto_render(
-    input = file_template,
-    output_format = output_format,
-    execute_params = params,
+  quarto::quarto_render(
+    input = template,
+    execute_dir = getwd(),
+    execute_params = list(
+      package = package,
+      session = session,
+      options = options
+    ),
+    quarto_args = c("--output-dir", quarto_out_dir),
+    quiet = quiet %||% FALSE,
     ...
   )
 
-  post_rendering <- list.files(render_dir, full.names = TRUE)
-
-  files_to_remove <- intersect(pre_rendering, post_rendering)
-  fr <- file.remove(files_to_remove)
-  if (any(!fr)) {
-    warning("Failed to remove the quarto template used from the directory.")
-  }
-
-  output_files <- setdiff(post_rendering, pre_rendering)
-  invisible(output_files)
+  obj <- readRDS(package)
+  report_stem <- paste0("val_", obj$name, "_", obj$version)
+  rename_quarto_outputs(
+    input_dir = quarto_out_dir,
+    output_dir = output_dir,
+    output_stem = report_stem
+  )
 }
 
-is.empty <- function(x) {
+rename_quarto_outputs <- function(input_dir, output_dir, output_stem) {
+  files <- list.files(input_dir, full.names = TRUE)
+
+  for (i in rev(seq_along(files))) {
+    old_path <- files[[i]]
+    new_path <- gsub("\\.", "-", output_stem)
+    new_path <- paste0(new_path, ".", tools::file_ext(old_path))
+    new_path <- file.path(output_dir, new_path)
+
+    files[[i]] <- new_path
+    file.copy(old_path, new_path, overwrite = TRUE)
+    file.remove(old_path)
+  }
+
+  files
+}
+
+callr_val_package <- function(package, options, artifacts_dir, quiet) {
+  library(S7)
+  library(val.meter)
+
+  # pass through configured options
+  options(options)
+  if (is.logical(quiet)) {
+    options(val.meter.quiet = quiet)
+  }
+
+  # derive package metrics
+  pkg <- S7::convert(package, val.meter::pkg)
+  val.meter::metrics(pkg)
+
+  # save out to Rds
+  pkg_file <- paste0("val_", pkg$name, "_", pkg$version, "_")
+  pkg_file <- gsub("\\.", "-", pkg_file)
+  pkg_file <- file.path(artifacts_dir, paste0(pkg_file, ".Rds"))
+  saveRDS(pkg, pkg_file)
+
+  # record session info to Rds
+  session_file <- file.path(artifacts_dir, "val_session.Rds")
+  saveRDS(val.report::session(), session_file)
+
+  list(package = pkg_file, session = session_file, options = list())
+}
+
+val_options <- function(prefix = "val.", plus = character(0L)) {
+  opts <- options()
+  append(opts[startsWith(names(opts), prefix)], opts[plus])
+}
+
+is_rds_path <- function(x) {
+  is.character(x) && file.exists(x) && endsWith(x, ".Rds")
+}
+
+is_empty <- function(x) {
   is.null(x) || is.na(x) || !nzchar(x)
 }
