@@ -10,7 +10,7 @@
 #'   `Rds` file of a [val.meter::pkg] object . For details on accepted inputs,
 #'   see [val.meter::pkg].
 #' @param session A `list` of session information or a path to an `Rds` of a
-#'   [val.report::session] object. If `NULL`, the session informatino will be
+#'   [val.report::session] object. If `NULL`, the session information will be
 #'   derived when the package metrics are calculated. Will error if only one
 #'   of `package` or `session` is provided as a `Rds` file.
 #' @param options Additional options to use when deriving package metrics. By
@@ -42,7 +42,7 @@ package_report <- function(
   package = NULL,
   session = NULL,
   options = val_options(plus = c("width")),
-  template = system.file("report", "template.qmd", package = "val.report"),
+  template = NULL,
   output_dir = getwd(),
   quiet = FALSE,
   ...
@@ -52,11 +52,28 @@ package_report <- function(
 
   # temp dir for report output
   quarto_out_dir <- tempfile("val_report_")
+  on.exit(unlink(quarto_out_dir, recursive = TRUE), add = TRUE)
   dir.create(quarto_out_dir)
 
   # temp dir for passing Rds content from subprocess to parent
   quarto_artifacts_dir <- tempfile("val_artifacts_")
+  on.exit(unlink(quarto_artifacts_dir, recursive = TRUE), add = TRUE)
   dir.create(quarto_artifacts_dir)
+
+  # if not provided, copy bundled template into temporary directory
+  if (is.null(template)) {
+    file.copy(
+      system.file("report", package = "val.report"),
+      tempdir(),
+      recursive = TRUE
+    )
+
+    template_dir <- tempfile("val_report_template_")
+    file.rename(file.path(tempdir(), "report"), template_dir)
+    on.exit(unlink(template_dir, recursive = TRUE), add = TRUE)
+
+    template <- file.path(template_dir, "template.qmd")
+  }
 
   # derive metrics for package, write out to Rds
   if (is_rds_path(package) && !is_rds_path(session)) {
@@ -98,7 +115,7 @@ package_report <- function(
 
   obj <- readRDS(package)
   report_stem <- paste0("val_", obj$name, "_", obj$version)
-  rename_quarto_outputs(
+  copy_quarto_outputs(
     input_dir = quarto_out_dir,
     output_dir = output_dir,
     output_stem = report_stem
@@ -106,18 +123,22 @@ package_report <- function(
 }
 
 #' @importFrom tools file_ext
-rename_quarto_outputs <- function(input_dir, output_dir, output_stem) {
+copy_quarto_outputs <- function(input_dir, output_dir, output_stem) {
   files <- list.files(input_dir, full.names = TRUE)
 
   for (i in rev(seq_along(files))) {
     old_path <- files[[i]]
+    if (dir.exists(old_path)) {
+      files[[i]] <- NULL
+      next
+    }
+
     new_path <- gsub("\\.", "-", output_stem)
     new_path <- paste0(new_path, ".", tools::file_ext(old_path))
     new_path <- file.path(output_dir, new_path)
 
     files[[i]] <- new_path
     file.copy(old_path, new_path, overwrite = TRUE)
-    file.remove(old_path)
   }
 
   files

@@ -8,7 +8,7 @@ package_report(
   package = NULL,
   session = NULL,
   options = val_options(plus = c("width")),
-  template = system.file("report", "template.qmd", package = "val.report"),
+  template = NULL,
   output_dir = getwd(),
   quiet = FALSE,
   ...
@@ -20,7 +20,7 @@ package_report(
 see \link[val.meter:pkg]{val.meter::pkg}.}
 
 \item{session}{A \code{list} of session information or a path to an \code{Rds} of a
-\link{session} object. If \code{NULL}, the session informatino will be
+\link{session} object. If \code{NULL}, the session information will be
 derived when the package metrics are calculated. Will error if only one
 of \code{package} or \code{session} is provided as a \code{Rds} file.}
 

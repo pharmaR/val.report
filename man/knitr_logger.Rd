@@ -9,7 +9,7 @@ knitr_logger()
 \value{
 A \code{function} accepting \code{...} arguments, which will be used for
 printing out to the console while rendering the knitr document. Character
-values are logged directrly, while any other object is printed as though
+values are logged directly, while any other object is printed as though
 being printed to the console. To render character values as they would
 be printed, mark them as "AsIs" using \code{\link[=I]{I()}}.
 }

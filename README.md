@@ -10,47 +10,56 @@ coverage](https://codecov.io/gh/pharmaR/val.report/graph/badge.svg)](https://app
 [![R-CMD-check](https://github.com/pharmaR/val.report/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/pharmaR/val.report/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-The goal of val.report is to documents results of package checks for
-validation.
+*documents package validation checks*
 
 ## Installation
 
 You can install the development version of val.report from
-[GitHub](https://github.com/) with:
+[GitHub](https://github.com/pharmaR/val.report) with:
 
 ``` r
 # install.packages("pak")
 pak::pak("pharmaR/val.report")
 ```
 
-## Example
+## Quick Start
 
-This is a basic example which shows you how to solve a common problem:
+Generate reports easily
 
 ``` r
 library(val.report)
-# Specify the folder where the files should go (here for easy access on the website)
-options("valreport_output_dir" = "pkgdown/assets")
-pr <- package_report(
-  package_name = "dplyr",
-  package_version = "1.1.4",
-  params = list(
-    assessment_path = system.file("assessments/dplyr.rds", package = "val.report")),
-  quiet = TRUE # To silence quarto output for readability
+
+options(
+  width = 80L,
+  val.meter.logs = TRUE,
+  val.meter.policy = val.meter::policy(permissions = TRUE)
 )
-#> Warning in package_report(package_name = "dplyr", package_version = "1.1.4", :
-#> Please provide the source of the package assessment
-pr
-#> [1] "pkgdown/assets/validation_report_dplyr_v1.1.4.html"
-#> [2] "pkgdown/assets/validation_report_dplyr_v1.1.4.md"  
-#> [3] "pkgdown/assets/validation_report_dplyr_v1.1.4.pdf"
+
+package_report("praise")
 ```
 
-We first selected were reports should go. Then we used
-[{riskmetric}](https://cran.r-project.org/package=riskmetric) data to
-generate the report for the package.
+Because we’ve given `val.meter` permission to download packages from the
+network, passing simply a package name will pull the latest version from
+a package repository for evaluation.
 
-Then we can access those files on the website:
+If you’d like to be more prescriptive, you can also pass a local source
+code directory or package archive (`.tar.gz` or `.zip`).
+`package_report` accepts any input that can be converted into a
+`val.meter::pkg` object.
 
-- [HTML](https://pharmar.github.io/val.report/validation_report_dplyr_v1.1.4.html)
-- [markdown](https://pharmar.github.io/val.report/validation_report_dplyr_v1.1.4.md)
+> \[!NOTE\]
+>
+> We are continuing to add more supported input types. Currently,
+> locally source code directories have the best support to cover the
+> most concrete use case. We plan to improve support for more
+> user-friendly inputs such as packages by name and `.tar.gz` by url.
+
+## For Developers
+
+This repository vendors the R Validation Hub quarto template, which is
+included as a `git` submodule. Submodules require slightly different
+syntax in order to be included. When cloning, be sure to use:
+
+``` sh
+git clone --recurse-submodules ...  
+```
