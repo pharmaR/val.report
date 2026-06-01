@@ -53,7 +53,7 @@ Origin
 | Execution Time | 2025-11-13 14:29:20 UTC      |
 
 **System information**. Table about the system used to check the
-package.
+package. {.caption-top .table .table-sm .table-striped .small}
 
 ## R Session Info
 

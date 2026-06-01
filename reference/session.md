@@ -1,6 +1,6 @@
 # Collect session information
 
-Catalogues characteristics of the R session and execution environment.
+Catalogs characteristics of the R session and execution environment.
 
 ## Usage
 

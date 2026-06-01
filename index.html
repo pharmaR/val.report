@@ -6,9 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>Validation Reports • val.report</title>
+<!-- favicons --><link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+<link rel="icon" type="”image/svg+xml”" href="favicon.svg">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="icon" sizes="any" href="favicon.ico">
+<link rel="manifest" href="site.webmanifest">
 <script src="deps/jquery-3.6.0/jquery-3.6.0.min.js"></script><meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<link href="deps/bootstrap-5.3.1/bootstrap.min.css" rel="stylesheet">
-<script src="deps/bootstrap-5.3.1/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<link href="deps/bootstrap-5.3.8/bootstrap.min.css" rel="stylesheet">
+<script src="deps/bootstrap-5.3.8/bootstrap.bundle.min.js"></script><link href="deps/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="deps/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
 <script src="deps/headroom-0.11.0/headroom.min.js"></script><script src="deps/headroom-0.11.0/jQuery.headroom.min.js"></script><script src="deps/bootstrap-toc-1.0.1/bootstrap-toc.min.js"></script><script src="deps/clipboard.js-2.0.11/clipboard.min.js"></script><script src="deps/search-1.0.0/autocomplete.jquery.min.js"></script><script src="deps/search-1.0.0/fuse.min.js"></script><script src="deps/search-1.0.0/mark.min.js"></script><!-- pkgdown --><script src="pkgdown.js"></script><meta property="og:title" content="Validation Reports">
 <meta name="description" content="Documents package checks for validation in a pharmaceutic context.">
@@ -60,42 +65,41 @@
 </div>
 <!-- badges: start -->
 
-<p>The goal of val.report is to documents results of package checks for validation.</p>
+<p><em>documents package validation checks</em></p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
-<p>You can install the development version of val.report from <a href="https://github.com/" class="external-link">GitHub</a> with:</p>
+<p>You can install the development version of val.report from <a href="https://github.com/pharmaR/val.report" class="external-link">GitHub</a> with:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("pak")</span></span>
 <span><span class="fu">pak</span><span class="fu">::</span><span class="fu"><a href="https://pak.r-lib.org/reference/pak.html" class="external-link">pak</a></span><span class="op">(</span><span class="st">"pharmaR/val.report"</span><span class="op">)</span></span></code></pre></div>
 </div>
 <div class="section level2">
-<h2 id="example">Example<a class="anchor" aria-label="anchor" href="#example"></a>
+<h2 id="quick-start">Quick Start<a class="anchor" aria-label="anchor" href="#quick-start"></a>
 </h2>
-<p>This is a basic example which shows you how to solve a common problem:</p>
+<p>Generate reports easily</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://github.com/pharmaR/val.report" class="external-link">val.report</a></span><span class="op">)</span></span>
-<span><span class="co"># Specify the folder where the files should go (here for easy access on the website)</span></span>
-<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span><span class="st">"valreport_output_dir"</span> <span class="op">=</span> <span class="st">"pkgdown/assets"</span><span class="op">)</span></span>
-<span><span class="va">pr</span> <span class="op">&lt;-</span> <span class="fu"><a href="reference/package_report.html">package_report</a></span><span class="op">(</span></span>
-<span>  package_name <span class="op">=</span> <span class="st">"dplyr"</span>,</span>
-<span>  package_version <span class="op">=</span> <span class="st">"1.1.4"</span>,</span>
-<span>  params <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>    assessment_path <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/system.file.html" class="external-link">system.file</a></span><span class="op">(</span><span class="st">"assessments/dplyr.rds"</span>, package <span class="op">=</span> <span class="st">"val.report"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>  quiet <span class="op">=</span> <span class="cn">TRUE</span> <span class="co"># To silence quarto output for readability</span></span>
+<span></span>
+<span><span class="fu"><a href="https://rdrr.io/r/base/options.html" class="external-link">options</a></span><span class="op">(</span></span>
+<span>  width <span class="op">=</span> <span class="fl">80L</span>,</span>
+<span>  val.meter.logs <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>  val.meter.policy <span class="op">=</span> <span class="fu">val.meter</span><span class="fu">::</span><span class="fu"><a href="https://pharmar.github.io/val.meter/reference/policy.html" class="external-link">policy</a></span><span class="op">(</span>permissions <span class="op">=</span> <span class="cn">TRUE</span><span class="op">)</span></span>
 <span><span class="op">)</span></span>
-<span><span class="co">#&gt; Warning in package_report(package_name = "dplyr", package_version = "1.1.4", :</span></span>
-<span><span class="co">#&gt; Please provide the source of the package assessment</span></span>
-<span><span class="va">pr</span></span>
-<span><span class="co">#&gt; [1] "pkgdown/assets/validation_report_dplyr_v1.1.4.html"</span></span>
-<span><span class="co">#&gt; [2] "pkgdown/assets/validation_report_dplyr_v1.1.4.md"  </span></span>
-<span><span class="co">#&gt; [3] "pkgdown/assets/validation_report_dplyr_v1.1.4.pdf"</span></span></code></pre></div>
-<p>We first selected were reports should go. Then we used <a href="https://cran.r-project.org/package=riskmetric" class="external-link">{riskmetric}</a> data to generate the report for the package.</p>
-<p>Then we can access those files on the website:</p>
-<ul>
-<li><a href="https://pharmar.github.io/val.report/validation_report_dplyr_v1.1.4.html">HTML</a></li>
-<li><a href="https://pharmar.github.io/val.report/validation_report_dplyr_v1.1.4.md">markdown</a></li>
-</ul>
+<span></span>
+<span><span class="fu"><a href="reference/package_report.html">package_report</a></span><span class="op">(</span><span class="st">"praise"</span><span class="op">)</span></span></code></pre></div>
+<p>Because we’ve given <code>val.meter</code> permission to download packages from the network, passing simply a package name will pull the latest version from a package repository for evaluation.</p>
+<p>If you’d like to be more prescriptive, you can also pass a local source code directory or package archive (<code>.tar.gz</code> or <code>.zip</code>). <code>package_report</code> accepts any input that can be converted into a <code><a href="https://pharmar.github.io/val.meter/reference/pkg.html" class="external-link">val.meter::pkg</a></code> object.</p>
+<blockquote>
+<p>[!NOTE]</p>
+<p>We are continuing to add more supported input types. Currently, locally source code directories have the best support to cover the most concrete use case. We plan to improve support for more user-friendly inputs such as packages by name and <code>.tar.gz</code> by url.</p>
+</blockquote>
+</div>
+<div class="section level2">
+<h2 id="for-developers">For Developers<a class="anchor" aria-label="anchor" href="#for-developers"></a>
+</h2>
+<p>This repository vendors the R Validation Hub quarto template, which is included as a <code>git</code> submodule. Submodules require slightly different syntax in order to be included. When cloning, be sure to use:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode sh"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="fu">git</span> clone <span class="at">--recurse-submodules</span> ...  </span></code></pre></div>
 </div>
 </div>
   </main><aside class="col-md-3"><div class="links">

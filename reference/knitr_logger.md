@@ -13,7 +13,7 @@ knitr_logger()
 
 A `function` accepting `...` arguments, which will be used for printing
 out to the console while rendering the knitr document. Character values
-are logged directrly, while any other object is printed as though being
+are logged directly, while any other object is printed as though being
 printed to the console. To render character values as they would be
 printed, mark them as "AsIs" using
 [`I()`](https://rdrr.io/r/base/AsIs.html).
