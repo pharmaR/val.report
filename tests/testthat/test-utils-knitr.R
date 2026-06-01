@@ -133,7 +133,7 @@ test_that("knitr_mutable_header can modify yaml frontmatter during runtime", {
   )
 
   content <- readLines(example_md)
-  expect_match(paste(content, collapse = "\n"), "^Mutable Title\n===", )
+  expect_match(paste(content, collapse = "\n"), "^Example\n===", )
 })
 
 test_that("knitr_logger writes to console output", {

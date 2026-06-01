@@ -14,25 +14,27 @@ BugReports: https://github.com/pharmaR/val.report/issues
 Depends:
     R (>= 4.3.0)
 Imports:
-    grDevices,
+    callr,
+    knitr,
     methods,
-    htmltools,
     quarto (>= 1.4.4),
-    reactable,
+    S7,
+    tools,
     utils,
+    val.meter,
     yaml
 Suggests: 
-    knitr,
-    riskmetric (>= 0.2.4),
     rmarkdown,
-    S7,
     spelling,
     testthat (>= 3.0.0),
     withr (>= 3.0.2)
+Remotes:
+    val.meter=github::pharmaR/val.meter
 VignetteBuilder: 
     knitr
 Config/testthat/edition: 3
 Encoding: UTF-8
 Language: en-US
 Roxygen: list(markdown = TRUE)
+Config/roxygen2/version: 8.0.0
 RoxygenNote: 7.3.3

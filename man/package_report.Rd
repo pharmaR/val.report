@@ -2,58 +2,61 @@
 % Please edit documentation in R/reporter.R
 \name{package_report}
 \alias{package_report}
-\title{Reports about a package}
+\title{Generates an R Validation Hub package report}
 \usage{
 package_report(
-  package_name,
-  package_version,
   package = NULL,
-  template_path = system.file("report/package", package = "val.report"),
-  output_format = "all",
-  params = list(),
+  session = NULL,
+  options = val_options(plus = c("width")),
+  template = NULL,
+  output_dir = getwd(),
+  quiet = FALSE,
   ...
 )
 }
 \arguments{
-\item{package_name}{Package name.}
+\item{package}{A package name, source code file path, url or path to an
+\code{Rds} file of a \link[val.meter:pkg]{val.meter::pkg} object . For details on accepted inputs,
+see \link[val.meter:pkg]{val.meter::pkg}.}
 
-\item{package_version}{Package version number.}
+\item{session}{A \code{list} of session information or a path to an \code{Rds} of a
+\link{session} object. If \code{NULL}, the session information will be
+derived when the package metrics are calculated. Will error if only one
+of \code{package} or \code{session} is provided as a \code{Rds} file.}
 
-\item{package}{Path where to find a package source to retrieve name and
-version number.}
+\item{options}{Additional options to use when deriving package metrics. By
+default, inherits any \verb{val.*} options as well as a select few global
+environment variables.}
 
-\item{template_path}{Path to a directory with one quarto template file (and
-the files required for rendering it).}
+\item{template}{A \code{quarto} template file to use. See details for more
+information.}
 
-\item{output_format}{Output format for the report. Default is "all".}
+\item{output_dir}{\code{character(1L)} directory path in which rendered files
+should be generated. Defaults to the current working directory.}
 
-\item{params}{A list of execute parameters passed to the template}
+\item{quiet}{\code{logical(1L)} flag indicating whether output should be emitted
+to the console when rendering the report.}
 
-\item{...}{Additional arguments passed to \code{quarto::quarto_render()}}
-}
-\value{
-A path to the reports generated, called by its side effects.
+\item{...}{Additional arguments passed to \code{\link[quarto:quarto_render]{quarto::quarto_render()}}}
 }
 \description{
-Reports about a package
+Generates an R Validation Hub package report
 }
 \details{
-Please include source as part of \code{params} content. Source is
-returned after calling function \code{riskmetric::pkg_ref} before the risk
-assessment is executed
+This function uses a pre-built \code{quarto} extension which provides its own
+template document. To replace the existing template with your own without
+further changes, ensure that your template exposes the same parameters.
+Custom templates likely want to begin as a copy of the original report.
 }
 \examples{
-options("valreport_output_dir" = tempdir())
-pr <- package_report(
-  package_name = "dplyr",
-  package_version = "1.1.4",
-  params = list(
-    assessment_path =
-      system.file("assessments/dplyr.rds", package = "val.report"),
-    image = "rhub/ref-image"),
-    quiet = FALSE
+\dontrun{
+options(
+  width = 80L,
+  val.meter.logs = TRUE,
+  val.meter.policy = val.meter::policy(permissions = TRUE)
 )
-pr
-file.remove(pr)
+
+package_report(package = "path/to/package")
+}
 
 }

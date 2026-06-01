@@ -1,0 +1,6 @@
+# to use ssh credentials, run:
+# git config url."ssh://git@".insteadOf https://
+
+[submodule "inst/report"]
+	path = inst/report
+	url = https://github.com/pharmaR/rvalhub-report-quarto.git
