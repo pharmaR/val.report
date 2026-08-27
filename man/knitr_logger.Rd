@@ -20,3 +20,6 @@ messages to the console during knitting.
 \note{
 \code{val.report} \code{knitr} utilities are exported for use in reports maintained by the R Validation Hub. If you choose to use these functions for other purposes, be aware that these are not considered stable for broader use.
 }
+\examples{
+knitr_logger()
+}

@@ -210,6 +210,8 @@ knit_print.knitr_log <- local({
 #'   be printed, mark them as "AsIs" using [I()].
 #'
 #' @export
+#' @examples
+#' knitr_logger()
 knitr_logger <- local({
   first_chunk_log <- TRUE
   style <- knitr_logger_styles

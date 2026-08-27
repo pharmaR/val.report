@@ -6,6 +6,14 @@
 \usage{
 session()
 }
+\value{
+A list with time, r_version, session_info, platform, machine,
+rng_kind, capabilities, external_software and graphics_software information.
+}
 \description{
 Catalogs characteristics of the R session and execution environment.
+}
+\examples{
+s <- session()
+str(s, 2)
 }

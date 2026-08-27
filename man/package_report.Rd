@@ -39,6 +39,9 @@ to the console when rendering the report.}
 
 \item{...}{Additional arguments passed to \code{\link[quarto:quarto_render]{quarto::quarto_render()}}}
 }
+\value{
+Path to the reports.
+}
 \description{
 Generates an R Validation Hub package report
 }
