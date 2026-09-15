@@ -23,7 +23,7 @@
 #' @param quiet `logical(1L)` flag indicating whether output should be emitted
 #'   to the console when rendering the report.
 #' @param ... Additional arguments passed to [quarto::quarto_render()]
-#'
+#' @returns Path to the reports.
 #' @examples
 #' \dontrun{
 #' options(

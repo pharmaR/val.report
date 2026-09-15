@@ -6,6 +6,8 @@
 \alias{val.report-package}
 \title{val.report: Validation Reports}
 \description{
+\if{html}{\figure{logo.svg}{options: style='float: right' alt='logo' width='120'}}
+
 Documents package checks for validation in a pharmaceutic context.
 }
 \seealso{
@@ -19,6 +21,11 @@ Useful links:
 }
 \author{
 \strong{Maintainer}: Lluís Revilla Sancho \email{lluis.revilla_sancho@roche.com} (\href{https://orcid.org/0000-0001-9747-2570}{ORCID})
+
+Authors:
+\itemize{
+  \item Lluís Revilla Sancho \email{lluis.revilla_sancho@roche.com} (\href{https://orcid.org/0000-0001-9747-2570}{ORCID})
+}
 
 Other contributors:
 \itemize{
