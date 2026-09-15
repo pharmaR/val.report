@@ -44,8 +44,132 @@
     <div class="sourceCode"><pre class="sourceCode r"><code><span><span class="fu">session</span><span class="op">(</span><span class="op">)</span></span></code></pre></div>
     </div>
 
+    <div class="section level2">
+    <h2 id="value">Value<a class="anchor" aria-label="anchor" href="#value"></a></h2>
+    <p>A list with time, r_version, session_info, platform, machine,
+rng_kind, capabilities, external_software and graphics_software information.</p>
+    </div>
 
-  </main></div>
+    <div class="section level2">
+    <h2 id="ref-examples">Examples<a class="anchor" aria-label="anchor" href="#ref-examples"></a></h2>
+    <div class="sourceCode"><pre class="sourceCode r"><code><span class="r-in"><span><span class="va">s</span> <span class="op">&lt;-</span> <span class="fu">session</span><span class="op">(</span><span class="op">)</span></span></span>
+<span class="r-in"><span><span class="fu"><a href="https://rdrr.io/r/utils/str.html" class="external-link">str</a></span><span class="op">(</span><span class="va">s</span>, <span class="fl">2</span><span class="op">)</span></span></span>
+<span class="r-out co"><span class="r-pr">#&gt;</span> List of 9</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ time             : POSIXct[1:1], format: "2026-09-15 10:06:08"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ r_version        :List of 14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ platform      : chr "x86_64-pc-linux-gnu"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ arch          : chr "x86_64"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ os            : chr "linux-gnu"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ system        : chr "x86_64, linux-gnu"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ status        : chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ major         : chr "4"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ minor         : chr "6.1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ year          : chr "2026"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ month         : chr "06"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ day           : chr "24"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ svn rev       : chr "90187"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ language      : chr "R"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ version.string: chr "R version 4.6.1 (2026-06-24)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ nickname      : chr "Happy Hop"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ session_info     :List of 14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ R.version  :List of 14</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ platform   : chr "x86_64-pc-linux-gnu"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ locale     : chr "LC_CTYPE=C.UTF-8;LC_NUMERIC=C;LC_TIME=C.UTF-8;LC_COLLATE=C;LC_MONETARY=C.UTF-8;LC_MESSAGES=C.UTF-8;LC_PAPER=C.U"| __truncated__</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ tzone      : chr "UTC"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ tzcode_type: chr "system (glibc)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ running    : chr "Ubuntu 24.04.5 LTS"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ RNGkind    : chr [1:3] "Mersenne-Twister" "Inversion" "Rejection"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ basePkgs   : chr [1:7] "stats" "graphics" "grDevices" "utils" ...</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ otherPkgs  :List of 1</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ loadedOnly :List of 55</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ matprod    : chr "default"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ BLAS       : chr "/usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ LAPACK     : chr "/usr/lib/x86_64-linux-gnu/openblas-pthread/libopenblasp-r0.3.26.so"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ LA_version : chr "3.12.0"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..- attr(*, "class")= chr "sessionInfo"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ platform         :List of 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ OS.type   : chr "unix"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ file.sep  : chr "/"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ dynlib.ext: chr ".so"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ GUI       : chr "X11"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ endian    : chr "little"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ pkgType   : chr "source"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ path.sep  : chr ":"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ r_arch    : chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ machine          :List of 29</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ double.eps               : num 2.22e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ double.neg.eps           : num 1.11e-16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ double.xmin              : num 2.23e-308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ double.xmax              : num 1.8e+308</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ double.base              : int 2</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ double.digits            : int 53</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ double.rounding          : int 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ double.guard             : int 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ double.ulp.digits        : int -52</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ double.neg.ulp.digits    : int -53</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ double.exponent          : int 11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ double.min.exp           : int -1022</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ double.max.exp           : int 1024</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ integer.max              : int 2147483647</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ sizeof.long              : int 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ sizeof.longlong          : int 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ sizeof.longdouble        : int 16</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ sizeof.pointer           : int 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ sizeof.time_t            : int 8</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ longdouble.eps           : num 1.08e-19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ longdouble.neg.eps       : num 5.42e-20</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ longdouble.digits        : int 64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ longdouble.rounding      : int 5</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ longdouble.guard         : int 0</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ longdouble.ulp.digits    : int -63</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ longdouble.neg.ulp.digits: int -64</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ longdouble.exponent      : int 15</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ longdouble.min.exp       : int -16382</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ longdouble.max.exp       : int 16384</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ rng_kind         : chr [1:3] "Mersenne-Twister" "Inversion" "Rejection"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ capabilities     :List of 19</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ jpeg       : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ png        : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ tiff       : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ tcltk      : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ X11        : logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ aqua       : logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ http/ftp   : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ sockets    : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ libxml     : logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ fifo       : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ cledit     : logi FALSE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ iconv      : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ NLS        : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ Rprof      : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ profmem    : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ cairo      : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ICU        : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ long.double: logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ libcurl    : logi TRUE</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ external_software:List of 11</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ zlib      : chr "1.3"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ bzlib     : chr "1.0.8, 13-Jul-2019"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ xz        : chr "5.4.5"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ libdeflate: chr "1.19"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ zstd      : chr "1.5.5"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ PCRE      : chr "10.42 2022-12-11"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ ICU       : chr "74.2"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ TRE       : chr "TRE 0.8.0 R_fixes (BSD)"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ iconv     : chr "glibc 2.39"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ readline  : chr "8.2"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ BLAS      : chr "/usr/lib/x86_64-linux-gnu/openblas-pthread/libblas.so.3"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>  $ graphics_software:List of 6</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ cairo  : chr "1.18.0"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ cairoFT: chr ""</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ pango  : chr "1.52.1"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ libpng : chr "1.6.43"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ jpeg   : chr "8.0"</span>
+<span class="r-out co"><span class="r-pr">#&gt;</span>   ..$ libtiff: chr "LIBTIFF, Version 4.5.1"</span>
+</code></pre></div>
+    </div>
+  </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
+    </nav></aside></div>
 
 
     <footer><div class="pkgdown-footer-left">
@@ -53,7 +177,7 @@
 </div>
 
 <div class="pkgdown-footer-right">
-  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.0.</p>
+  <p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.2.1.</p>
 </div>
 
     </footer></div>

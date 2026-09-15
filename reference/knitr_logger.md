@@ -24,3 +24,16 @@ printed, mark them as "AsIs" using
 maintained by the R Validation Hub. If you choose to use these functions
 for other purposes, be aware that these are not considered stable for
 broader use.
+
+## Examples
+
+``` r
+knitr_logger()
+#> function (...) 
+#> {
+#>     knitr::knit_print(structure(list(...), class = c("knitr_log", 
+#>         "list")), output_style = output_style)
+#> }
+#> <bytecode: 0x5613c25a8d78>
+#> <environment: 0x5613c25a9440>
+```
